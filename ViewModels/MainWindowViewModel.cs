@@ -1,8 +1,26 @@
-﻿namespace PokeMemo.ViewModels;
+﻿using System;
+using ReactiveUI;
+using System.Windows.Input;
 
-public partial class MainWindowViewModel : ViewModelBase
+namespace PokeMemo.ViewModels
 {
-#pragma warning disable CA1822 // Mark members as static
-    public string Greeting => "Welcome to Avalonia!";
-#pragma warning restore CA1822 // Mark members as static
+    public class MainWindowViewModel : ViewModelBase
+    {
+        private int? _counter = 0;
+        public int? Counter
+        {
+            get => _counter;
+            set => this.RaiseAndSetIfChanged(ref _counter, value);
+        }
+        
+        public ICommand IncreaseCounter { get; }
+
+        public MainWindowViewModel()
+        {
+            IncreaseCounter = ReactiveCommand.Create(() =>
+            {
+                Counter++;
+            });
+        }
+    }
 }
