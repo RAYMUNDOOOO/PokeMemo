@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
+using Avalonia.Media.Imaging;
+using PokeMemo.Utility;
 
 namespace PokeMemo.Models
 {
@@ -21,7 +23,10 @@ namespace PokeMemo.Models
         [ObservableProperty]
         private string _borderColour;
 
-        public Deck(string name, string category, string backgroundColour, string foregroundColour, string borderColour)
+        [ObservableProperty]
+        private Bitmap _imageSource;
+
+        public Deck(string name, string category, string backgroundColour, string foregroundColour, string borderColour, string imageSource)
         {
             Id = _nextId++;
             Name = name;
@@ -30,6 +35,7 @@ namespace PokeMemo.Models
             _backgroundColour = backgroundColour;
             _foregroundColour = foregroundColour;
             _borderColour = borderColour;
+            _imageSource = ImageHelper.LoadFromResource(imageSource);
         }
     }
 }

@@ -10,20 +10,22 @@ using System.Windows.Input;
 using PokeMemo.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 
 namespace PokeMemo.ViewModels
 {
-    public partial class DeckLibraryViewModel : ObservableObject
+    public partial class DeckLibraryViewModel : ViewModelBase
     {
         public ObservableCollection<Deck> Decks { get; set; }
-        public ICommand AddNewDeckCommand { get; }
+        public ICommand NavigateToAddDeckViewCommand { get; }
         public DeckLibraryViewModel()
         {
             Decks = new ObservableCollection<Deck>();
-            Decks.Add(new Deck("Multiplication Deck", "Maths", "#B3EFFF", "Black", "#5ADBFF"));
-            Decks.Add(new Deck("Addition Deck", "Maths", "#93D48A", "Black", "#53A548"));
+            Decks.Add(new Deck("Multiplication Deck", "Maths", "#87BBF1", "Black", "#4D91D7", "/Assets/water-type.png"));
+            Decks.Add(new Deck("Addition Deck", "Maths", "#94D88D", "Black", "#61BB59", "/Assets/grass-type.png"));
 
-            AddNewDeckCommand = new RelayCommand(o => AddNewDeck());
+            NavigateToAddDeckViewCommand = new RelayCommand(o => NavigateToAddDeckView());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -32,10 +34,13 @@ namespace PokeMemo.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void AddNewDeck()
+        private void NavigateToAddDeckView()
         {
-            Decks.Add(new Deck("New Deck", "New Category", "#FFDD4A", "Black", "#FE9000"));
-            OnPropertyChanged(nameof(Decks));
+            var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
+            mainWindowViewModel?.NavigateToAddDeckViewCommand.Execute(null);
+
         }
     }
 }
+
+
