@@ -8,7 +8,7 @@ using Avalonia;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 
-namespace PokeMemo
+namespace PokeMemo.Utility
 {
     public static class ImageHelper
     {
