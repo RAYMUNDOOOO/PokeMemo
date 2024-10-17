@@ -1,26 +1,37 @@
 ﻿using System;
 using ReactiveUI;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace PokeMemo.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public partial class MainWindowViewModel : ObservableObject
     {
-        //private int? _counter = 0;
-        //public int? Counter
-        //{
-        //    get => _counter;
-        //    set => this.RaiseAndSetIfChanged(ref _counter, value);
-        //}
-        
-        //public ICommand IncreaseCounter { get; }
+        private object _currentView;
+        public object CurrentView
+        {
+            get => _currentView;
+            set => SetProperty(ref _currentView, value);
+        }
 
-        //public MainWindowViewModel()
-        //{
-        //    IncreaseCounter = ReactiveCommand.Create(() =>
-        //    {
-        //        Counter++;
-        //    });
-        //}
+        public ICommand NavigateToDeckLibraryCommand { get; }
+        public ICommand NavigateToAddDeckViewCommand { get; }
+
+        public MainWindowViewModel()
+        {
+            NavigateToDeckLibraryCommand = new RelayCommand(o => NavigateToDeckLibrary());
+            NavigateToAddDeckViewCommand = new RelayCommand(o => NavigateToAddDeckView());
+            CurrentView = new DeckLibraryViewModel();
+        }
+
+        private void NavigateToDeckLibrary()
+        {
+            CurrentView = new DeckLibraryViewModel();
+        }
+
+        private void NavigateToAddDeckView()
+        {
+            CurrentView = new AddDeckViewModel();
+        }
     }
 }
