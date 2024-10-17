@@ -20,8 +20,8 @@ namespace PokeMemo.ViewModels
         public DeckLibraryViewModel()
         {
             Decks = new ObservableCollection<Deck>();
-            Decks.Add(new Deck("Multiplication Deck", "Maths", "#B3EFFF", "Black", "#5ADBFF"));
-            Decks.Add(new Deck("Addition Deck", "Maths", "#93D48A", "Black", "#53A548"));
+            Decks.Add(new Deck("Multiplication Deck", "Maths", "#87BBF1", "Black", "#4D91D7", "/Assets/water-type.png"));
+            Decks.Add(new Deck("Addition Deck", "Maths", "#94D88D", "Black", "#61BB59", "/Assets/grass-type.png"));
 
             AddNewDeckCommand = new RelayCommand(o => AddNewDeck());
         }
@@ -34,7 +34,7 @@ namespace PokeMemo.ViewModels
 
         private void AddNewDeck()
         {
-            Decks.Add(new Deck("New Deck", "New Category", "#FFDD4A", "Black", "#FE9000"));
+            Decks.Add(new Deck("New Deck", "New Category", "#FCE473", "Black", "#F3D33C", "/Assets/electric-type.png"));
             OnPropertyChanged(nameof(Decks));
         }
     }
