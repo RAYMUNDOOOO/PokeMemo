@@ -37,5 +37,10 @@ namespace PokeMemo.Models
             _borderColour = borderColour;
             _imageSource = ImageHelper.LoadFromResource(imageSource);
         }
+
+        public void AddCard(Card card)
+        {
+            Cards.Add(card);
+        }
     }
 }

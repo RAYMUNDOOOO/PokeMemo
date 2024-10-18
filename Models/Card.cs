@@ -7,9 +7,9 @@ namespace PokeMemo.Models
     public partial class Card : ObservableObject
     {
         private static int _nextId = 1;
-        public required int Id { get; set; }
-        public required string Question { get; set; }
-        public required string Answer { get; set; }
+        public int Id { get; set; }
+        public string Question { get; set; }
+        public string Answer { get; set; }
 
         [ObservableProperty]
         private string _backgroundColour;
