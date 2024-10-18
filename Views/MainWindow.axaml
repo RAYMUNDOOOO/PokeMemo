@@ -4,13 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="using:PokeMemo.Views"
+        x:DataType="vm:MainWindowViewModel"
 		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		x:Class="PokeMemo.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="PokeMemo"
 		CanResize="True"
-		x:CompileBindings="False"
-        
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent">
 	<Window.DataContext>
@@ -18,33 +17,3 @@
 	</Window.DataContext>
 	<ContentControl Content="{Binding CurrentView}" ContentTemplate="{StaticResource ViewLocator}" />
 </Window>
-    <!--<Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-
-    <Panel>
-        <ExperimentalAcrylicBorder IsHitTestVisible="False">
-            <ExperimentalAcrylicBorder.Material>
-                <ExperimentalAcrylicMaterial
-                    BackgroundSource="Digger"
-                    TintColor="Black"
-                    TintOpacity="1"
-                    MaterialOpacity="0.65" />
-            </ExperimentalAcrylicBorder.Material>
-        </ExperimentalAcrylicBorder>
-        
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock
-                Text="{Binding Counter}"
-                FontSize="32"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Margin="0,0,0,30"/>
-            <Button Content="Click me!"
-                    Command="{Binding IncreaseCounter}"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center" />
-        </StackPanel>
-    </Panel>-->
-
-
