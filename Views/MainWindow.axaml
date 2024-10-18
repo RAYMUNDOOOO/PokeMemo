@@ -8,6 +8,7 @@
 		x:Class="PokeMemo.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="PokeMemo"
+		CanResize="True"
 		x:CompileBindings="False"
         
         TransparencyLevelHint="AcrylicBlur"
