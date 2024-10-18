@@ -12,22 +12,22 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using PokeMemo.Utility;
 
 namespace PokeMemo.ViewModels
 {
     public partial class DeckLibraryViewModel : ViewModelBase
     {
-        private DeckLibrary DeckLibrary { get; }
-
-        public ICommand NavigateToAddDeckViewCommand { get; }
-        public ICommand NavigateToPreviewDeckViewCommand { get; }
-
+        public ObservableCollection<Deck> Decks { get; set; }
+        public ICommand NavigateToCreateDeckViewCommand { get; }
+        public ICommand NavigateToQuizViewCommand { get; }
         public DeckLibraryViewModel()
         {
-            DeckLibrary = DataService.Instance.DeckLibrary;
-            NavigateToAddDeckViewCommand = new RelayCommand(o => NavigateToAddDeckView());
-            NavigateToPreviewDeckViewCommand = new RelayCommand(o => NavigateToPreviewDeckView());
+            Decks = new ObservableCollection<Deck>();
+            Decks.Add(new Deck("Multiplication Deck", "Maths", "#87BBF1", "Black", "#4D91D7", "/Assets/water-type.png"));
+            Decks.Add(new Deck("Addition Deck", "Maths", "#94D88D", "Black", "#61BB59", "/Assets/grass-type.png"));
+
+            NavigateToCreateDeckViewCommand = new RelayCommand(o => NavigateToCreateDeckView());
+            NavigateToQuizViewCommand = new RelayCommand(o => NavigateToQuizView());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -36,16 +36,16 @@ namespace PokeMemo.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void NavigateToAddDeckView()
+        private void NavigateToCreateDeckView()
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
-            mainWindowViewModel?.NavigateToAddDeckViewCommand.Execute(null);
+            mainWindowViewModel?.NavigateToCreateDeckViewCommand.Execute(null);
         }
 
-        private void NavigateToPreviewDeckView()
+        private void NavigateToQuizView()
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
-            mainWindowViewModel?.NavigateToPreviewDeckViewCommand.Execute(null);
+            mainWindowViewModel?.NavigateToQuizViewCommand.Execute(null);
         }
     }
 }

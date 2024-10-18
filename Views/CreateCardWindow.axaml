@@ -1,0 +1,59 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="PokeMemo.Views.CreateCardWindow"
+        Title="CreateCard">
+        <StackPanel Margin="30, 20" Spacing="30">
+                <!-- Title bar -->
+                <Grid Height="40" ColumnDefinitions="Auto, *, Auto">
+                       <TextBlock 
+                               VerticalAlignment="Center" 
+                               Grid.Column="0" 
+                               Text="Create a new card" 
+                               FontSize="32" />
+                       <Button Grid.Column="2" Content="Back" />
+                </Grid>
+                
+                <!-- Main section -->
+                <DockPanel Height="270">
+                        <!-- Card preview -->
+                        <Border DockPanel.Dock="Left" Background="Chartreuse" CornerRadius="15" Margin="0,0,30,0">
+                                <StackPanel VerticalAlignment="Center" Spacing="10">
+                                        <TextBlock 
+                                                Text="What is the radius of the Earth?" 
+                                                TextWrapping="Wrap"
+                                                TextAlignment="Center"
+                                                FontWeight="Medium"
+                                                Margin="20,0"
+                                                MaxWidth="180" />
+                                        <TextBlock 
+                                                Text="6.371km" 
+                                                TextAlignment="Center"
+                                                FontWeight="Light"/>
+                                </StackPanel>
+                        </Border>
+                        
+                        <!-- User input fields -->
+                        <Grid DockPanel.Dock="Right" RowDefinitions="Auto, Auto" VerticalAlignment="Center">
+                                <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,20">
+                                        <TextBlock Text="Enter a question" />
+                                        <TextBox CornerRadius="5" HorizontalAlignment="Stretch" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Spacing="8">
+                                        <TextBlock Text="What's the answer?" />
+                                        <TextBox CornerRadius="5" HorizontalAlignment="Stretch" />
+                                </StackPanel>
+                        </Grid>
+                </DockPanel>
+                
+                <!-- Buttons to save or create new card -->
+                <DockPanel>
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+                                <Button Content="Save and exit" />
+                                <Button Content="Save and create next card" />
+                        </StackPanel>
+                </DockPanel>
+        </StackPanel>
+</Window>

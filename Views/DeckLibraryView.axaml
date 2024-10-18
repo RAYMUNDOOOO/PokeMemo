@@ -12,10 +12,8 @@
 	</Design.DataContext>
 	<StackPanel>
 		<TextBlock Text="Deck Library" FontSize="40" FontWeight="Bold" TextAlignment="Center" Margin="40"/>
-
-		<!-- Initial Deck Library Display -->
-		<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AllowAutoHide="False" Margin="50, 0, 50, 0" >
-			<ListBox ItemsSource="{Binding DeckLibrary.Decks}" SelectedItem="{Binding DeckLibrary.SelectedDeck}" Margin="0" SelectionMode="Single">
+		<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AllowAutoHide="False" Margin="50, 0, 50, 0">
+			<ListBox ItemsSource="{Binding Decks}" Margin="0" SelectionMode="Single">
 				<ListBox.ItemsPanel>
 					<ItemsPanelTemplate>
 						<WrapPanel />
@@ -34,9 +32,9 @@
 				</ListBox.ItemTemplate>
 			</ListBox>
 		</ScrollViewer>
-		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-			<Button Content="View Deck" Command="{Binding NavigateToPreviewDeckViewCommand}" IsEnabled="{Binding IsDeckSelected}" Padding="40" Margin="20" />
-			<Button Content="Add New Deck" Command="{Binding NavigateToAddDeckViewCommand}" Padding="40" Margin="20" />
+		<StackPanel Orientation="Horizontal">
+			<Button Content="Take Quiz" Command="{Binding NavigateToQuizViewCommand}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="40" Margin="30" />
+			<Button Content="Add New Deck" Command="{Binding NavigateToCreateDeckViewCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="40" Margin="0, 10, 50, 30" />
 		</StackPanel>
 	</StackPanel>
 </UserControl>

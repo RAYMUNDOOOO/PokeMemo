@@ -5,11 +5,11 @@ using PokeMemo.ViewModels;
 
 namespace PokeMemo.Views;
 
-public partial class AddDeckView : UserControl
+public partial class QuizView : UserControl
 {
-    public AddDeckView()
+    public QuizView()
     {
         InitializeComponent();
-        DataContext = new AddDeckViewModel();
+        DataContext = new QuizViewModel();
     }
 }
