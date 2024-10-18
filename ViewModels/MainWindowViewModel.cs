@@ -14,24 +14,31 @@ namespace PokeMemo.ViewModels
             set => SetProperty(ref _currentView, value);
         }
 
-        public ICommand NavigateToDeckLibraryCommand { get; }
-        public ICommand NavigateToAddDeckViewCommand { get; }
+        public ICommand NavigateToDeckLibraryViewCommand { get; }
+        public ICommand NavigateToCreateDeckViewCommand { get; }
+        public ICommand NavigateToQuizViewCommand { get;  }
 
         public MainWindowViewModel()
         {
-            NavigateToDeckLibraryCommand = new RelayCommand(o => NavigateToDeckLibrary());
-            NavigateToAddDeckViewCommand = new RelayCommand(o => NavigateToAddDeckView());
+            NavigateToDeckLibraryViewCommand = new RelayCommand(o => NavigateToDeckLibraryView());
+            NavigateToCreateDeckViewCommand = new RelayCommand(o => NavigateToCreateDeckView());
+            NavigateToQuizViewCommand = new RelayCommand(o => NavigateToQuizView());
             CurrentView = new DeckLibraryViewModel();
         }
 
-        private void NavigateToDeckLibrary()
+        private void NavigateToDeckLibraryView()
         {
             CurrentView = new DeckLibraryViewModel();
         }
 
-        private void NavigateToAddDeckView()
+        private void NavigateToCreateDeckView()
         {
-            CurrentView = new AddDeckViewModel();
+            CurrentView = new CreateDeckViewModel();
+        }
+
+        private void NavigateToQuizView()
+        {
+            CurrentView = new QuizViewModel();
         }
     }
 }
