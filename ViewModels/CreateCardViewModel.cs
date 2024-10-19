@@ -10,6 +10,10 @@ namespace PokeMemo.ViewModels
         public string? Question { get; set; }
         public string? Answer { get; set; }
     
+        /*
+         * Setting up view navigation by creating RelayCommands that call on functions
+         * that update the CurrentViewModel in MainWindowViewModel
+         */
         public ICommand NavigateToPreviewDeckViewCommand { get; }
         public ICommand CreateAndSaveNewCardCommand { get; }
 
