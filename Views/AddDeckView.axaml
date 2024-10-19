@@ -41,6 +41,18 @@
 						FontWeight="Light"/>
 				</StackPanel>
 			</Border>
+			
+			<!-- User input fields -->
+			<Grid DockPanel.Dock="Right" RowDefinitions="Auto, Auto" VerticalAlignment="Center">
+				<StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,20">
+					<TextBlock Text="Deck Name:" />
+					<TextBox CornerRadius="5" HorizontalAlignment="Stretch" />
+				</StackPanel>
+				<StackPanel Grid.Row="1" Spacing="8">
+					<TextBlock Text="Category:" />
+					<TextBox CornerRadius="5" HorizontalAlignment="Stretch" />
+				</StackPanel>
+			</Grid>
 		</DockPanel>
 	</StackPanel>
 </UserControl>
