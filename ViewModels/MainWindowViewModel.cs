@@ -18,12 +18,15 @@ namespace PokeMemo.ViewModels
         public ICommand NavigateToAddDeckViewCommand { get; }
 
         public ICommand NavigateToPreviewDeckViewCommand { get; }
+        
+        public ICommand NavigateToAddCardViewCommand { get; }
 
         public MainWindowViewModel()
         {
             NavigateToDeckLibraryViewCommand = new RelayCommand(o => NavigateToDeckLibrary());
             NavigateToAddDeckViewCommand = new RelayCommand(o => NavigateToAddDeckView());
             NavigateToPreviewDeckViewCommand = new RelayCommand(o => NavigateToPreviewDeckView());
+            NavigateToAddCardViewCommand = new RelayCommand(o => NavigateToAddCardView());
             CurrentView = new DeckLibraryViewModel();
         }
 
@@ -39,6 +42,11 @@ namespace PokeMemo.ViewModels
         private void NavigateToPreviewDeckView()
         {
             CurrentView = new PreviewDeckViewModel();
+        }
+        
+        private void NavigateToAddCardView()
+        {
+            CurrentView = new AddCardViewModel();
         }
     }
 }

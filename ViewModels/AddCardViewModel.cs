@@ -1,4 +1,4 @@
-﻿using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -10,15 +10,17 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia;
 
-namespace PokeMemo.ViewModels
+namespace PokeMemo.ViewModels;
+
+public class AddCardViewModel
 {
-    public partial class CreateDeckViewModel : ViewModelBase
+    public partial class AddCardViewModel : ViewModelBase
     {
         public ICommand NavigateToAddCardViewCommand { get; }
 
-        public CreateDeckViewModel()
+        public AddCardViewModel()
         {
-            NavigateToAddCardViewCommand = new RelayCommand(o => NavigateToAddCardViewCommand());
+            NavigateToAddCardViewCommand = new RelayCommand(o => NavigateToAddCardView());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -26,7 +28,8 @@ namespace PokeMemo.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private void NavigateToDeckLibraryView()
+        
+        private void NavigateToAddCardView()
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
             mainWindowViewModel?.NavigateToAddCardViewCommand.Execute(null);
