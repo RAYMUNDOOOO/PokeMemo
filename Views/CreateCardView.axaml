@@ -14,7 +14,7 @@
                                Grid.Column="0" 
                                Text="Create a new card" 
                                FontSize="32" />
-                       <Button Grid.Column="2" Content="Back" />
+                       <Button Grid.Column="2" Content="Back" Command="{Binding NavigateToPreviewDeckViewCommand}" />
                 </Grid>
                 
                 <!-- Main section -->
@@ -41,10 +41,12 @@
                                 <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,20">
                                         <TextBlock Text="Enter a question" />
                                         <TextBox CornerRadius="5" HorizontalAlignment="Stretch" />
+                                        <TextBlock Text="Please enter a question first before saving." Foreground="Red" IsEnabled="{Binding IsQuestionEmpty}"/>
                                 </StackPanel>
                                 <StackPanel Grid.Row="1" Spacing="8">
                                         <TextBlock Text="What's the answer?" />
                                         <TextBox CornerRadius="5" HorizontalAlignment="Stretch" />
+                                        <TextBlock Text="Please enter an answer first before saving." Foreground="Red" IsEnabled="{Binding IsAnswerEmpty}"/>
                                 </StackPanel>
                         </Grid>
                 </DockPanel>
@@ -52,8 +54,8 @@
                 <!-- Buttons to save or create new card -->
                 <DockPanel>
                         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
-                                <Button Content="Save and exit" />
-                                <Button Content="Save and create next card" />
+                                <Button Content="Save and exit" Command="{Binding SaveCardAndExitCommand }" IsEnabled="True" />
+                                <Button Content="Save and create next card" Command="{Binding SaveAndCreateNextCardCommand}" IsEnabled="True"/>
                         </StackPanel>
                 </DockPanel>
         </StackPanel>
