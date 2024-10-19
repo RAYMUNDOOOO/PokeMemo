@@ -21,16 +21,15 @@
                 <DockPanel Height="270">
                         <!-- Card preview -->
                         <Border DockPanel.Dock="Left" Background="Chartreuse" CornerRadius="15" Margin="0,0,30,0">
-                                <StackPanel VerticalAlignment="Center" Spacing="10">
+                                <StackPanel VerticalAlignment="Center" Spacing="10" Width="200">
                                         <TextBlock 
-                                                Text="What is the radius of the Earth?" 
+                                                Text="{Binding Question}" 
                                                 TextWrapping="Wrap"
                                                 TextAlignment="Center"
                                                 FontWeight="Medium"
-                                                Margin="20,0"
-                                                MaxWidth="180" />
+                                                Margin="20,0" />
                                         <TextBlock 
-                                                Text="6.371km" 
+                                                Text="{Binding Answer}" 
                                                 TextAlignment="Center"
                                                 FontWeight="Light"/>
                                 </StackPanel>
