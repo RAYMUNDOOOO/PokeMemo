@@ -22,5 +22,25 @@
 				FontSize="32" />
 			<Button Grid.Column="2" Content="Back" Command="{Binding NavigateToDeckLibraryViewCommand}"/>
 		</Grid>
+		
+		<!-- Main section -->
+		<DockPanel Height="270">
+			<!-- Deck preview -->
+			<Border DockPanel.Dock="Left" Background="Gray" CornerRadius="15" Margin="0,0,30,0">
+				<StackPanel VerticalAlignment="Center" Spacing="10">
+					<TextBlock 
+						Text="Deck Name" 
+						TextWrapping="Wrap"
+						TextAlignment="Center"
+						FontWeight="Medium"
+						Margin="20,0"
+						MaxWidth="180" />
+					<TextBlock 
+						Text="Category Name" 
+						TextAlignment="Center"
+						FontWeight="Light"/>
+				</StackPanel>
+			</Border>
+		</DockPanel>
 	</StackPanel>
 </UserControl>
