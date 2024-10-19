@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Views\CreateDeckView.axaml.cs">
+      <Compile Update="Views\AddDeckView.axaml.cs">
         <DependentUpon>CreateDeckView.axaml</DependentUpon>
       </Compile>
     </ItemGroup>

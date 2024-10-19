@@ -5,9 +5,9 @@ using PokeMemo.ViewModels;
 
 namespace PokeMemo.Views;
 
-public partial class CreateDeckView : UserControl
+public partial class AddDeckView : UserControl
 {
-    public CreateDeckView()
+    public AddDeckView()
     {
         InitializeComponent();
         DataContext = new CreateDeckViewModel();
