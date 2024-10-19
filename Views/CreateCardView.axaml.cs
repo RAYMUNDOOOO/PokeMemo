@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace PokeMemo.Views;
 
-public partial class CreateCardWindow : Window
+public partial class CreateCardView : Window
 {
-    public CreateCardWindow()
+    public CreateCardView()
     {
         InitializeComponent();
     }
