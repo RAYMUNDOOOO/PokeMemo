@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -25,11 +27,18 @@ namespace PokeMemo.ViewModels
         public ICommand SaveCardAndExitCommand { get; }
         public ICommand SaveAndCreateNextCardCommand { get; }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public CreateCardViewModel()
         {
             NavigateToPreviewDeckViewCommand = new RelayCommand(o => NavigateToPreviewDeckView());
             SaveCardAndExitCommand = new RelayCommand(o => SaveCardAndExit());
             SaveAndCreateNextCardCommand = new RelayCommand(o => SaveAndCreateNextCard());
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void NavigateToPreviewDeckView()
