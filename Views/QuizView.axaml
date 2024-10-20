@@ -2,16 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:local="clr-namespace:PokeMemo.ViewModels"
-			 xmlns:models="clr-namespace:PokeMemo.Models"
+             xmlns:local="clr-namespace:PokeMemo.ViewModels"
+             xmlns:models="clr-namespace:PokeMemo.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="PokeMemo.Views.QuizView"
-			 x:CompileBindings="False">
-	<Design.DataContext>
-		<local:QuizViewModel/>
-	</Design.DataContext>
-	<StackPanel>
-		<Button Content="Back to Deck Library" Command="{Binding NavigateToDeckLibraryViewCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Padding="40" Margin="10"/>
-		<TextBlock Text="This is the Quiz View" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
-	</StackPanel>
+             x:CompileBindings="False">
+    <Design.DataContext>
+        <local:QuizViewModel/>
+    </Design.DataContext>
+    <StackPanel>
+        <Button Content="Back to Deck Library" Command="{Binding NavigateToDeckLibraryViewCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Padding="40" Margin="10"/>
+        <TextBlock Text="This is the Quiz View" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+    </StackPanel>
 </UserControl>

@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="using:PokeMemo.Views"
         x:DataType="vm:MainWindowViewModel"
-		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-		x:Class="PokeMemo.Views.MainWindow"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="PokeMemo.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="PokeMemo"
-		CanResize="True"
+        CanResize="True"
         TransparencyLevelHint="AcrylicBlur"
         Background="Transparent">
-	<Window.DataContext>
-		<vm:MainWindowViewModel/>
-	</Window.DataContext>
-	<ContentControl Content="{Binding CurrentView}" ContentTemplate="{StaticResource ViewLocator}" />
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <ContentControl Content="{Binding CurrentView}" ContentTemplate="{StaticResource ViewLocator}" />
 </Window>

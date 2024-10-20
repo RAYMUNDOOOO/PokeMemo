@@ -14,11 +14,12 @@ namespace PokeMemo.ViewModels
 {
     public partial class CreateDeckViewModel : ViewModelBase
     {
-        public ICommand NavigateToAddCardViewCommand { get; }
+
+        public ICommand NavigateToDeckLibraryViewCommand { get; }
 
         public CreateDeckViewModel()
         {
-            NavigateToAddCardViewCommand = new RelayCommand(o => NavigateToAddCardViewCommand());
+            NavigateToDeckLibraryViewCommand = new RelayCommand(o => NavigateToDeckLibraryView());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -29,7 +30,7 @@ namespace PokeMemo.ViewModels
         private void NavigateToDeckLibraryView()
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
-            mainWindowViewModel?.NavigateToAddCardViewCommand.Execute(null);
+            mainWindowViewModel?.NavigateToDeckLibraryViewCommand.Execute(null);
         }
     }
 }

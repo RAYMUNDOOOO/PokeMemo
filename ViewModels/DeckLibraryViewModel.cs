@@ -23,8 +23,6 @@ namespace PokeMemo.ViewModels
         public ICommand NavigateToCreateDeckViewCommand { get; }
         public ICommand NavigateToQuizViewCommand { get; }
         public ICommand NavigateToPreviewDeckViewCommand { get; }
-        
-        public ICommand NavigateToAddCardViewCommand { get; }
 
         public DeckLibraryViewModel()
         {
@@ -32,7 +30,6 @@ namespace PokeMemo.ViewModels
             NavigateToCreateDeckViewCommand = new RelayCommand(o => NavigateToCreateDeckView());
             NavigateToQuizViewCommand = new RelayCommand(o => NavigateToQuizView());
             NavigateToPreviewDeckViewCommand = new RelayCommand(o => NavigateToPreviewDeckView());
-            NavigateToAddCardViewCommand = new RelayCommand(o => NavigateToAddCardView());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -55,12 +52,6 @@ namespace PokeMemo.ViewModels
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
             mainWindowViewModel?.NavigateToPreviewDeckViewCommand.Execute(null);
-        }
-
-        private void NavigateToAddCardView()
-        {
-            var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
-            mainWindowViewModel?.NavigateToAddCardViewCommand.Execute(null);
         }
     }
 }
