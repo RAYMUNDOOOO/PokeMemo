@@ -8,15 +8,21 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using PokeMemo.Models;
+using PokeMemo.Utility;
 
 namespace PokeMemo.ViewModels
 {
     public partial class QuizResultsViewModel : ViewModelBase
     {
+        private DeckLibrary DeckLibrary { get; }
+
+        public int Score => DeckLibrary.CurrentQuiz.Score;
         public ICommand NavigateToDeckLibraryViewCommand { get; }
 
         public QuizResultsViewModel()
         {
+            DeckLibrary = DataService.Instance.DeckLibrary;
             NavigateToDeckLibraryViewCommand = new RelayCommand(o => NavigateToDeckLibraryView());
         }
 

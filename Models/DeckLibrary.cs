@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PokeMemo.Models
 {
-    public class DeckLibrary : ObservableObject
+    public partial class DeckLibrary : ObservableObject
     {
         public List<Deck> Decks { get; set; }
 
@@ -19,6 +19,8 @@ namespace PokeMemo.Models
             set => SetProperty(ref _selectedDeck, value);
         }
 
+        [ObservableProperty]
+        private Quiz _currentQuiz;
         public DeckLibrary()
         {
             Decks = new List<Deck>
