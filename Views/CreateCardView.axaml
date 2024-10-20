@@ -26,13 +26,13 @@
                         <Border DockPanel.Dock="Left" Background="Chartreuse" CornerRadius="15" Margin="0,0,30,0">
                                 <StackPanel VerticalAlignment="Center" Spacing="10" Width="200">
                                         <TextBlock 
-                                                Text="{Binding Question}" 
+                                                Text="{Binding #Question.Text}" 
                                                 TextWrapping="Wrap"
                                                 TextAlignment="Center"
                                                 FontWeight="Medium"
                                                 Margin="20,0" />
                                         <TextBlock 
-                                                Text="{Binding Answer}" 
+                                                Text="{Binding #Answer.Text}" 
                                                 TextAlignment="Center"
                                                 FontWeight="Light"/>
                                 </StackPanel>
@@ -42,12 +42,12 @@
                         <Grid DockPanel.Dock="Right" RowDefinitions="Auto, Auto" VerticalAlignment="Center">
                                 <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,20">
                                         <TextBlock Text="Enter a question" />
-                                        <TextBox Text="{Binding Question, UpdateSourceTrigger=PropertyChanged}" CornerRadius="5" HorizontalAlignment="Stretch" />
+                                        <TextBox Text="{Binding Question, UpdateSourceTrigger=PropertyChanged}" Name="Question" CornerRadius="5" HorizontalAlignment="Stretch" />
                                         <TextBlock Text="Please enter a question first before saving." Foreground="Red" IsEnabled="{Binding IsQuestionEmpty}"/>
                                 </StackPanel>
                                 <StackPanel Grid.Row="1" Spacing="8">
                                         <TextBlock Text="What's the answer?" />
-                                        <TextBox Text="{Binding Answer, UpdateSourceTrigger=PropertyChanged}" CornerRadius="5" HorizontalAlignment="Stretch" />
+                                        <TextBox Text="{Binding Answer, UpdateSourceTrigger=PropertyChanged}" Name="Answer" CornerRadius="5" HorizontalAlignment="Stretch" />
                                         <TextBlock Text="Please enter an answer first before saving." Foreground="Red" IsEnabled="{Binding IsAnswerEmpty}"/>
                                 </StackPanel>
                         </Grid>
