@@ -10,8 +10,55 @@
     <Design.DataContext>
         <local:CreateDeckViewModel/>
     </Design.DataContext>
-    <StackPanel>
-        <Button Content="Back to Deck Library" Command="{Binding NavigateToDeckLibraryViewCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Padding="40" Margin="10"/>
-        <TextBlock Text="This is the Create Deck View" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+    
+    <StackPanel Margin="30, 20" Spacing="30">
+        <!-- Title bar -->
+        <Grid Height="40" ColumnDefinitions="Auto, *, Auto">
+            <TextBlock
+                VerticalAlignment="Center"
+                Grid.Column="0"
+                Text="Create a new deck"
+                FontSize="32" />
+            <Button Grid.Column="2" Content="Back" Command="{Binding NavigateToDeckLibraryViewCommand}"/>
+        </Grid>
+        
+        <!-- Main section -->
+        <DockPanel Height="270">
+            <!-- Deck preview -->
+            <Border DockPanel.Dock="Left" Background="Gray" CornerRadius="15" Margin="0,0,30,0">
+                <StackPanel VerticalAlignment="Center" Spacing="10">
+                    <TextBlock 
+                        Text="Deck Name" 
+                        TextWrapping="Wrap"
+                        TextAlignment="Center"
+                        FontWeight="Medium"
+                        Margin="20,0"
+                        MaxWidth="180" />
+                    <TextBlock 
+                        Text="Category Name" 
+                        TextAlignment="Center"
+                        FontWeight="Light"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- User input fields -->
+            <Grid DockPanel.Dock="Right" RowDefinitions="Auto, Auto" VerticalAlignment="Center">
+                <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,20">
+                    <TextBlock Text="Deck Name:" />
+                    <TextBox CornerRadius="5" HorizontalAlignment="Stretch" />
+                </StackPanel>
+                <StackPanel Grid.Row="1" Spacing="8">
+                    <TextBlock Text="Category:" />
+                    <TextBox CornerRadius="5" HorizontalAlignment="Stretch" />
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+        
+        <!-- Buttons to save or create new card -->
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+                <Button Content="Create Deck" />
+            </StackPanel>
+        </DockPanel>
     </StackPanel>
 </UserControl>
