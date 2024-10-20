@@ -6,6 +6,9 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="PokeMemo.Views.CreateCardView" 
              x:DataType="local:CreateCardViewModel">
+        <Design.DataContext>
+                <local:CreateCardViewModel />
+        </Design.DataContext>
         <StackPanel Margin="30, 20" Spacing="30">
                 <!-- Title bar -->
                 <Grid Height="40" ColumnDefinitions="Auto, *, Auto">
