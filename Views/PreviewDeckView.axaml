@@ -19,6 +19,7 @@
 		
 		<DockPanel Grid.Row="0" Margin="10">
 			<TextBlock Text="View Deck" FontSize="40" FontWeight="Bold" DockPanel.Dock="Left" VerticalAlignment="Center" />
+			<Button Content="Add Card" Command="{Binding NavigateToCreateCardViewCommand}" DockPanel.Dock="Right" IsEnabled="True" />
 			<Button Content="Back to Deck Library" Command="{Binding NavigateToDeckLibraryViewCommand}" DockPanel.Dock="Right" Padding="10" />
 		</DockPanel>
 
