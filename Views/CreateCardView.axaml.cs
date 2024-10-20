@@ -5,11 +5,11 @@ using PokeMemo.ViewModels;
 
 namespace PokeMemo.Views;
 
-public partial class CreateCardWindow : Window
+public partial class CreateCardView : UserControl
 {
-    public CreateCardWindow()
+    public CreateCardView()
     {
         InitializeComponent();
-        DataContext = new AddCardViewModel();
+        DataContext = new CreateCardViewModel();
     }
 }

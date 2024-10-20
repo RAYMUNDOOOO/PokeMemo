@@ -15,18 +15,18 @@ namespace PokeMemo.ViewModels
         }
 
         public ICommand NavigateToDeckLibraryViewCommand { get; }
-        public ICommand NavigateToAddDeckViewCommand { get; }
-
+        public ICommand NavigateToCreateDeckViewCommand { get; }
+        public ICommand NavigateToQuizViewCommand { get; }
         public ICommand NavigateToPreviewDeckViewCommand { get; }
-        
-        public ICommand NavigateToAddCardViewCommand { get; }
+        public ICommand NavigateToCreateCardViewCommand { get; }
 
         public MainWindowViewModel()
         {
             NavigateToDeckLibraryViewCommand = new RelayCommand(o => NavigateToDeckLibrary());
-            NavigateToAddDeckViewCommand = new RelayCommand(o => NavigateToAddDeckView());
+            NavigateToCreateDeckViewCommand = new RelayCommand(o => NavigateToCreateDeckView());
+            NavigateToQuizViewCommand = new RelayCommand(o => NavigateToQuizView());
             NavigateToPreviewDeckViewCommand = new RelayCommand(o => NavigateToPreviewDeckView());
-            NavigateToAddCardViewCommand = new RelayCommand(o => NavigateToAddCardView());
+            NavigateToCreateCardViewCommand = new RelayCommand(o => NavigateToCreateCardView());
             CurrentView = new DeckLibraryViewModel();
         }
 
@@ -34,19 +34,22 @@ namespace PokeMemo.ViewModels
         {
             CurrentView = new DeckLibraryViewModel();
         }
-
-        private void NavigateToAddDeckView()
+        private void NavigateToCreateDeckView()
         {
-            CurrentView = new AddDeckViewModel();
+            CurrentView = new CreateDeckViewModel();
+        }
+        private void NavigateToQuizView()
+        {
+            CurrentView = new QuizViewModel();
         }
         private void NavigateToPreviewDeckView()
         {
             CurrentView = new PreviewDeckViewModel();
         }
-        
-        private void NavigateToAddCardView()
+
+        private void NavigateToCreateCardView()
         {
-            CurrentView = new AddCardViewModel();
+            CurrentView = new CreateCardViewModel();
         }
     }
 }

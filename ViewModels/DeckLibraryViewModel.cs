@@ -20,7 +20,8 @@ namespace PokeMemo.ViewModels
     {
         private DeckLibrary DeckLibrary { get; }
 
-        public ICommand NavigateToAddDeckViewCommand { get; }
+        public ICommand NavigateToCreateDeckViewCommand { get; }
+        public ICommand NavigateToQuizViewCommand { get; }
         public ICommand NavigateToPreviewDeckViewCommand { get; }
         
         public ICommand NavigateToAddCardViewCommand { get; }
@@ -28,7 +29,8 @@ namespace PokeMemo.ViewModels
         public DeckLibraryViewModel()
         {
             DeckLibrary = DataService.Instance.DeckLibrary;
-            NavigateToAddDeckViewCommand = new RelayCommand(o => NavigateToAddDeckView());
+            NavigateToCreateDeckViewCommand = new RelayCommand(o => NavigateToCreateDeckView());
+            NavigateToQuizViewCommand = new RelayCommand(o => NavigateToQuizView());
             NavigateToPreviewDeckViewCommand = new RelayCommand(o => NavigateToPreviewDeckView());
             NavigateToAddCardViewCommand = new RelayCommand(o => NavigateToAddCardView());
         }
@@ -39,12 +41,16 @@ namespace PokeMemo.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void NavigateToAddDeckView()
+        private void NavigateToCreateDeckView()
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
-            mainWindowViewModel?.NavigateToAddDeckViewCommand.Execute(null);
+            mainWindowViewModel?.NavigateToCreateDeckViewCommand.Execute(null);
         }
-
+        private void NavigateToQuizView()
+        {
+            var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
+            mainWindowViewModel?.NavigateToQuizViewCommand.Execute(null);
+        }
         private void NavigateToPreviewDeckView()
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
