@@ -10,6 +10,7 @@ namespace PokeMemo.ViewModels
 {
     public class CreateCardViewModel : ViewModelBase
     {
+        public Deck CurrentDeck { get; }
         /*
          * Fields used for the creation of a card; generating the card preview
          * and determining which controls are visible
@@ -31,6 +32,7 @@ namespace PokeMemo.ViewModels
 
         public CreateCardViewModel()
         {
+            CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
             NavigateToPreviewDeckViewCommand = new RelayCommand(o => NavigateToPreviewDeckView());
             SaveCardAndExitCommand = new RelayCommand(o => SaveCardAndExit());
             SaveAndCreateNextCardCommand = new RelayCommand(o => SaveAndCreateNextCard());
@@ -83,9 +85,12 @@ namespace PokeMemo.ViewModels
         private void CreateCardAndRefreshFields()
         {
             /* Add a new card to the currently selected deck */
-            var currentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
-            currentDeck?.AddCard(new Card(Question, Answer, "#F6BD60", "#F7EDE2", "#F7EDE2", "/Assets/squirtle.png"));
-            
+            var backgroundColour = CurrentDeck?.BackgroundColour ?? "#FFFFFF";
+            var foregroundColour = CurrentDeck?.ForegroundColour ?? "#000000";
+            var borderColour = CurrentDeck?.BorderColour ?? "#000000";
+
+            CurrentDeck?.AddCard(new Card(Question, Answer, backgroundColour, foregroundColour, borderColour, "/Assets/squirtle.png"));
+
             /* Refresh the fields and update the corresponding view */
             Question = string.Empty;
             Answer = string.Empty;
