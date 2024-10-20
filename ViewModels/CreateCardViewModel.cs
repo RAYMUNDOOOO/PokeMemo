@@ -5,19 +5,62 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using PokeMemo.Utility;
 using PokeMemo.Models;
+using ReactiveUI;
 
 namespace PokeMemo.ViewModels
 {
     public class CreateCardViewModel : ViewModelBase
     {
+        public Deck CurrentDeck { get; }
         /*
          * Fields used for the creation of a card; generating the card preview
          * and determining which controls are visible
          */
-        public string? Question { get; set; }
-        public string? Answer { get; set; }
-        public bool IsQuestionEmpty { get; set; } = false;
-        public bool IsAnswerEmpty { get; set; } = false;
+        private string? _question;
+        public string? Question
+        {
+            get => _question;
+            set
+            {
+                _question = value;
+                this.RaiseAndSetIfChanged(ref _question, value);
+            }
+        }
+
+        private string? _answer;
+
+        public string? Answer
+        {
+            get => _answer;
+            set
+            {
+                _answer = value;
+                this.RaiseAndSetIfChanged(ref _answer, value);
+            }
+        }
+
+        private bool _isQuestionEmpty;
+        public bool IsQuestionEmpty
+        {
+            get => _isQuestionEmpty;
+            set
+            {
+                _isQuestionEmpty = value;
+                this.RaiseAndSetIfChanged(ref _isQuestionEmpty, value);
+            }
+        }
+        
+        private bool _isAnswerEmpty;
+
+        public bool IsAnswerEmpty
+        {
+            get => _isAnswerEmpty;
+            set
+            {
+                _isAnswerEmpty = value;
+                this.RaiseAndSetIfChanged(ref _isAnswerEmpty, value);
+            }
+        }
 
         /*
          * Setting up view navigation by creating RelayCommands that call on functions
@@ -31,6 +74,7 @@ namespace PokeMemo.ViewModels
 
         public CreateCardViewModel()
         {
+            CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
             NavigateToPreviewDeckViewCommand = new RelayCommand(o => NavigateToPreviewDeckView());
             SaveCardAndExitCommand = new RelayCommand(o => SaveCardAndExit());
             SaveAndCreateNextCardCommand = new RelayCommand(o => SaveAndCreateNextCard());
@@ -83,9 +127,12 @@ namespace PokeMemo.ViewModels
         private void CreateCardAndRefreshFields()
         {
             /* Add a new card to the currently selected deck */
-            var currentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
-            currentDeck?.AddCard(new Card(Question, Answer, "#F6BD60", "#F7EDE2", "#F7EDE2", "/Assets/squirtle.png"));
-            
+            var backgroundColour = CurrentDeck?.BackgroundColour ?? "#FFFFFF";
+            var foregroundColour = CurrentDeck?.ForegroundColour ?? "#000000";
+            var borderColour = CurrentDeck?.BorderColour ?? "#000000";
+
+            CurrentDeck?.AddCard(new Card(Question, Answer, backgroundColour, foregroundColour, borderColour, "/Assets/squirtle.png"));
+
             /* Refresh the fields and update the corresponding view */
             Question = string.Empty;
             Answer = string.Empty;
