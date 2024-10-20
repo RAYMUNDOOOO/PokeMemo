@@ -5,7 +5,7 @@ using PokeMemo.ViewModels;
 
 namespace PokeMemo.Views;
 
-public partial class CreateCardView : Window
+public partial class CreateCardView : UserControl
 {
     public CreateCardView()
     {

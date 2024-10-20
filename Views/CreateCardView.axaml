@@ -42,12 +42,12 @@
                         <Grid DockPanel.Dock="Right" RowDefinitions="Auto, Auto" VerticalAlignment="Center">
                                 <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,20">
                                         <TextBlock Text="Enter a question" />
-                                        <TextBox CornerRadius="5" HorizontalAlignment="Stretch" />
+                                        <TextBox Text="{Binding Question, UpdateSourceTrigger=PropertyChanged}" CornerRadius="5" HorizontalAlignment="Stretch" />
                                         <TextBlock Text="Please enter a question first before saving." Foreground="Red" IsEnabled="{Binding IsQuestionEmpty}"/>
                                 </StackPanel>
                                 <StackPanel Grid.Row="1" Spacing="8">
                                         <TextBlock Text="What's the answer?" />
-                                        <TextBox CornerRadius="5" HorizontalAlignment="Stretch" />
+                                        <TextBox Text="{Binding Answer, UpdateSourceTrigger=PropertyChanged}" CornerRadius="5" HorizontalAlignment="Stretch" />
                                         <TextBlock Text="Please enter an answer first before saving." Foreground="Red" IsEnabled="{Binding IsAnswerEmpty}"/>
                                 </StackPanel>
                         </Grid>
