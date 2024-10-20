@@ -5,6 +5,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using PokeMemo.Utility;
 using PokeMemo.Models;
+using ReactiveUI;
 
 namespace PokeMemo.ViewModels
 {
@@ -15,10 +16,51 @@ namespace PokeMemo.ViewModels
          * Fields used for the creation of a card; generating the card preview
          * and determining which controls are visible
          */
-        public string? Question { get; set; }
-        public string? Answer { get; set; }
-        public bool IsQuestionEmpty { get; set; } = false;
-        public bool IsAnswerEmpty { get; set; } = false;
+        private string? _question;
+        public string? Question
+        {
+            get => _question;
+            set
+            {
+                _question = value;
+                this.RaiseAndSetIfChanged(ref _question, value);
+            }
+        }
+
+        private string? _answer;
+
+        public string? Answer
+        {
+            get => _answer;
+            set
+            {
+                _answer = value;
+                this.RaiseAndSetIfChanged(ref _answer, value);
+            }
+        }
+
+        private bool _isQuestionEmpty;
+        public bool IsQuestionEmpty
+        {
+            get => _isQuestionEmpty;
+            set
+            {
+                _isQuestionEmpty = value;
+                this.RaiseAndSetIfChanged(ref _isQuestionEmpty, value);
+            }
+        }
+        
+        private bool _isAnswerEmpty;
+
+        public bool IsAnswerEmpty
+        {
+            get => _isAnswerEmpty;
+            set
+            {
+                _isAnswerEmpty = value;
+                this.RaiseAndSetIfChanged(ref _isAnswerEmpty, value);
+            }
+        }
 
         /*
          * Setting up view navigation by creating RelayCommands that call on functions
