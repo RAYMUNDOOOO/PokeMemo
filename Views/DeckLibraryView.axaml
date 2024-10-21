@@ -77,13 +77,11 @@
 			<Button 
 				Content="View Deck" 
 				Command="{Binding NavigateToPreviewDeckViewCommand}" 
-				IsEnabled="{Binding IsDeckSelected}" 
 				Padding="40" 
 				Margin="20" />
 			<Button 
 				Content="Take Quiz" 
 				Command="{Binding NavigateToQuizViewCommand}" 
-				IsEnabled="{Binding IsDeckSelected}" 
 				HorizontalAlignment="Left" 
 				VerticalAlignment="Bottom" 
 				Padding="40" 

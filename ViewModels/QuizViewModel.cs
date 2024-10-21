@@ -10,6 +10,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using PokeMemo.Models;
 using PokeMemo.Utility;
+using ReactiveUI;
 
 namespace PokeMemo.ViewModels
 {
@@ -18,9 +19,7 @@ namespace PokeMemo.ViewModels
         private DeckLibrary DeckLibrary { get; }
         private List<Card> _shuffledCards;
         private int _currentCardIndex;
-        private bool _showAnswer;
         public Card CurrentCard { get; set; }
-        public string DisplayText => _showAnswer ? CurrentCard.Answer : CurrentCard.Question;
 
         public ICommand DontRememberCommand { get; }
         public ICommand RememberCommand { get; }
@@ -42,10 +41,9 @@ namespace PokeMemo.ViewModels
 
             _shuffledCards = DeckLibrary.SelectedDeck?.Cards.OrderBy(c => Guid.NewGuid()).ToList();
             _currentCardIndex = 0;
-            _showAnswer = false;
             CurrentCard = _shuffledCards[_currentCardIndex];
 
-            DontRememberCommand = new RelayCommand(o => ShowAnswer());
+            DontRememberCommand = new RelayCommand(o => DontRememberCard());
             RememberCommand = new RelayCommand(o => RememberCard());
             NavigateToDeckLibraryViewCommand = new RelayCommand(o => NavigateToDeckLibraryView());
             NavigateToQuizResultsViewCommand = new RelayCommand(o => NavigateToQuizResultsView());
@@ -55,22 +53,17 @@ namespace PokeMemo.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            if (propertyName == nameof(CurrentCard))
-            {
-                OnPropertyChanged(nameof(DisplayText));
-            }
         }
 
         private void StartNewQuiz()
         {
-            DeckLibrary.CurrentQuiz = new Quiz();
+            DeckLibrary.CurrentQuiz = new Quiz(DeckLibrary.SelectedDeck.Cards.Count);
             OnPropertyChanged(nameof(DeckLibrary.CurrentQuiz));
         }
 
-        private void ShowAnswer()
+        private void DontRememberCard()
         {
-            _showAnswer = true;
-            OnPropertyChanged(nameof(CurrentCard));
+            NextCard();
         }
 
         private void RememberCard()
@@ -85,9 +78,8 @@ namespace PokeMemo.ViewModels
             {
                 _currentCardIndex++;
                 CurrentCard = _shuffledCards[_currentCardIndex];
-                _showAnswer = false;
                 OnPropertyChanged(nameof(CurrentCard));
-                OnPropertyChanged(nameof(DisplayText));
+                OnPropertyChanged(nameof(CurrentCard.Question));
 
                 Console.WriteLine($"CurrentCard: {CurrentCard.Question}");
             }

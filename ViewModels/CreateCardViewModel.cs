@@ -130,8 +130,9 @@ namespace PokeMemo.ViewModels
             var backgroundColour = CurrentDeck?.BackgroundColour ?? "#FFFFFF";
             var foregroundColour = CurrentDeck?.ForegroundColour ?? "#000000";
             var borderColour = CurrentDeck?.BorderColour ?? "#000000";
+            var imagePath = ImageHelper.GetImageByType(CurrentDeck?.Type);
 
-            CurrentDeck?.AddCard(new Card(Question, Answer, backgroundColour, foregroundColour, borderColour, "/Assets/squirtle.png"));
+            CurrentDeck?.AddCard(new Card(Question, Answer, backgroundColour, foregroundColour, borderColour, imagePath));
 
             /* Refresh the fields and update the corresponding view */
             Question = string.Empty;

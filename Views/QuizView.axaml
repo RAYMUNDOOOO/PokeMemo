@@ -40,7 +40,7 @@
 			Margin="50,20,50,100">
 
 			<TextBlock
-				Text="{Binding DisplayText, Mode=OneWay}"
+				Text="{Binding CurrentCard.Question}"
 				Foreground="{Binding DeckLibrary.SelectedDeck.ForegroundColour}"
 				FontSize="40"
 				FontWeight="Bold"

@@ -25,6 +25,20 @@ namespace PokeMemo.Models
             }
         }
 
+        private int _totalCards;
+        public int TotalCards
+        {
+            get => _totalCards;
+            set
+            {
+                if (_totalCards != value)
+                {
+                    _totalCards = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -32,9 +46,10 @@ namespace PokeMemo.Models
 
         }
 
-        public Quiz()
+        public Quiz(int totalCards)
         {
             Score = 0;
+            TotalCards = totalCards;
         }
     }
 }

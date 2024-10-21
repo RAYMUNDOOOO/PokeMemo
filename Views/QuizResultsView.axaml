@@ -11,9 +11,27 @@
 		<local:QuizResultsViewModel/>
 	</Design.DataContext>
 	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-		<TextBlock Text="Quiz Results" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="10"/>
-		<TextBlock Text="Your Score:" FontSize="20" HorizontalAlignment="Center" Margin="10"/>
-		<TextBlock Text="{Binding Score}" FontSize="20" HorizontalAlignment="Center" Margin="10"/>
+		<TextBlock 
+			Text="Quiz Results" 
+			FontSize="24" 
+			FontWeight="Bold" 
+			HorizontalAlignment="Center" 
+			Margin="20" />
+		<TextBlock 
+			Text="Your Score:" 
+			FontSize="20" 
+			HorizontalAlignment="Center" 
+			Margin="20" />
+		<TextBlock 
+			Text="{Binding ScoreText}" 
+			FontSize="30" 
+			HorizontalAlignment="Center" 
+			Margin="10,10,10,20" />
+		<TextBlock
+			Text="{Binding ResultText}"
+			FontSize="24"
+			HorizontalAlignment="Center"
+			Margin="10,10,10,40" />
 		<Button Content="Back to Deck Library" Command="{Binding NavigateToDeckLibraryViewCommand}" HorizontalAlignment="Center" Padding="10" Margin="10"/>
 	</StackPanel>
 </UserControl>
