@@ -18,27 +18,82 @@
 		</Grid.RowDefinitions>
 		
 		<DockPanel Grid.Row="0" Margin="10">
-			<TextBlock Text="View Deck" FontSize="40" FontWeight="Bold" DockPanel.Dock="Left" VerticalAlignment="Center" />
-			<Button Content="Add Card" Command="{Binding NavigateToCreateCardViewCommand}" DockPanel.Dock="Right" IsEnabled="True" />
-			<Button Content="Back to Deck Library" Command="{Binding NavigateToDeckLibraryViewCommand}" DockPanel.Dock="Right" Padding="10" />
+			<TextBlock 
+				Text="View Deck" 
+				FontSize="40" 
+				FontWeight="Bold" 
+				DockPanel.Dock="Left" 
+				VerticalAlignment="Center" />
+			<Button 
+				Content="Add Card" 
+				Command="{Binding NavigateToCreateCardViewCommand}" 
+				DockPanel.Dock="Right" 
+				IsEnabled="True" />
+			<Button 
+				Content="Back to Deck Library" 
+				Command="{Binding NavigateToDeckLibraryViewCommand}" 
+				DockPanel.Dock="Right" 
+				Padding="10" />
 		</DockPanel>
 
 		<!-- SplitView for Decks and Cards -->
-		<SplitView Grid.Row="1" Background="Black" IsPaneOpen="True" DisplayMode="Inline" OpenPaneLength="400">
+		<SplitView 
+			Grid.Row="1" 
+			Background="Black" 
+			IsPaneOpen="True" 
+			DisplayMode="Inline" 
+			OpenPaneLength="400">
 			<!-- Pane for Decks -->
 			<SplitView.Pane>
 				<Grid Margin="10">
-					<TextBlock Text="Decks" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,10" />
+					<TextBlock 
+						Text="Decks" 
+						FontSize="24" 
+						FontWeight="Bold" 
+						HorizontalAlignment="Center" 
+						Margin="0,10,0,10" />
 
-					<ScrollViewer VerticalScrollBarVisibility="Auto" AllowAutoHide="False" Margin="0, 50, 0, 50">
-						<ListBox ItemsSource="{Binding DeckLibrary.Decks}" SelectedItem="{Binding DeckLibrary.SelectedDeck}" Margin="0" SelectionMode="Single">
+					<ScrollViewer 
+						VerticalScrollBarVisibility="Auto" 
+						AllowAutoHide="False" 
+						Margin="0, 50, 0, 50">
+						<ListBox 
+							ItemsSource="{Binding DeckLibrary.Decks}" 
+							SelectedItem="{Binding DeckLibrary.SelectedDeck}" 
+							Margin="0" 
+							SelectionMode="Single">
 							<ListBox.ItemTemplate>
 								<DataTemplate>
-									<Border Width="300" Height="375" Background="{Binding BackgroundColour}" BorderBrush="{Binding BorderColour}" BorderThickness="15" CornerRadius="10" Margin="5">
+									<Border 
+										Width="300" 
+										Height="375" 
+										Background="{Binding BackgroundColour}" 
+										BorderBrush="{Binding BorderColour}" 
+										BorderThickness="15" 
+										CornerRadius="10" 
+										Margin="5">
 										<Grid>
-											<TextBlock Text="{Binding Name}" Foreground="{Binding ForegroundColour}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" TextAlignment="Center" TextWrapping="WrapWithOverflow" Margin="30,50,30,0"/>
+											<TextBlock 
+												Text="{Binding Name}" 
+												Foreground="{Binding ForegroundColour}" 
+												HorizontalAlignment="Center" 
+												VerticalAlignment="Top" 
+												FontSize="30" 
+												FontWeight="Bold" 
+												TextAlignment="Center" 
+												TextWrapping="WrapWithOverflow" 
+												Margin="30,50,30,0"/>
 											<Image Source="{Binding ImageSource}" Stretch="None"></Image>
-											<TextBlock Text="{Binding Category}" Foreground="{Binding ForegroundColour}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" FontWeight="Bold" TextAlignment="Center" TextWrapping="WrapWithOverflow" Margin="30,0,30,50"/>
+											<TextBlock 
+												Text="{Binding Category}" 
+												Foreground="{Binding ForegroundColour}" 
+												HorizontalAlignment="Center" 
+												VerticalAlignment="Bottom" 
+												FontSize="24" 
+												FontWeight="Bold" 
+												TextAlignment="Center" 
+												TextWrapping="WrapWithOverflow" 
+												Margin="30,0,30,50"/>
 										</Grid>
 									</Border>
 								</DataTemplate>
@@ -50,10 +105,23 @@
 			<!-- Content Area for Cards -->
 			<SplitView.Content>
 				<Grid Margin="10">
-						<TextBlock Text="{Binding DeckLibrary.SelectedDeck.Name, StringFormat={}{0} Cards}" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,10" />
+						<TextBlock 
+							Text="{Binding DeckLibrary.SelectedDeck.Name, StringFormat={}{0} Cards}" 
+							FontSize="24" 
+							FontWeight="Bold" 
+							HorizontalAlignment="Center" 
+							Margin="0,10,0,10" />
 
-						<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AllowAutoHide="False" Margin="0, 50, 0, 50">
-							<ListBox ItemsSource="{Binding DeckLibrary.SelectedDeck.Cards}" Margin="0" SelectionMode="Single">
+						<ScrollViewer 
+							HorizontalScrollBarVisibility="Auto" 
+							VerticalScrollBarVisibility="Auto" 
+							AllowAutoHide="False" 
+							Margin="0, 50, 0, 50">
+							<ListBox 
+								ItemsSource="{Binding DeckLibrary.SelectedDeck.Cards}" 
+								Margin="0" 
+								SelectionMode="Single">
+								
 								<ListBox.ItemsPanel>
 									<ItemsPanelTemplate>
 										<UniformGrid Columns="3" />
@@ -61,11 +129,37 @@
 								</ListBox.ItemsPanel>
 								<ListBox.ItemTemplate>
 									<DataTemplate>
-										<Border Width="250" Height="312" Background="{Binding BackgroundColour}" BorderBrush="{Binding BorderColour}" BorderThickness="15" CornerRadius="10" Margin="5">
+										<Border 
+											Width="250" 
+											Height="312" 
+											Background="{Binding BackgroundColour}" 
+											BorderBrush="{Binding BorderColour}" 
+											BorderThickness="15" 
+											CornerRadius="10" 
+											Margin="5">
+											
 											<Grid>
-												<TextBlock Text="{Binding Question}" Foreground="{Binding ForegroundColour}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" TextAlignment="Center" TextWrapping="WrapWithOverflow" Margin="30,50,30,0"/>
+												<TextBlock 
+													Text="{Binding Question}" 
+													Foreground="{Binding ForegroundColour}" 
+													HorizontalAlignment="Center" 
+													VerticalAlignment="Top" 
+													FontSize="25" 
+													FontWeight="Bold" 
+													TextAlignment="Center" 
+													TextWrapping="WrapWithOverflow" 
+													Margin="30,50,30,0"/>
 												<Image Source="{Binding ImageSource}" Stretch="None"/>
-												<TextBlock Text="{Binding Answer}" Foreground="{Binding ForegroundColour}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" FontWeight="Bold" TextAlignment="Center" TextWrapping="WrapWithOverflow" Margin="30,0,30,50"/>
+												<TextBlock 
+													Text="{Binding Answer}" 
+													Foreground="{Binding ForegroundColour}" 
+													HorizontalAlignment="Center" 
+													VerticalAlignment="Bottom" 
+													FontSize="20" 
+													FontWeight="Bold" 
+													TextAlignment="Center" 
+													TextWrapping="WrapWithOverflow" 
+													Margin="30,0,30,50"/>
 											</Grid>
 										</Border>
 									</DataTemplate>

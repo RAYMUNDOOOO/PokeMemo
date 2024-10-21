@@ -12,6 +12,7 @@ namespace PokeMemo.Models
         public int Id { get; private set; }
         public string Name { get; set; }
         public string Category { get; set; }
+        public PokemonType Type { get; set; }
         public List<Card> Cards { get; set; }
 
         [ObservableProperty]
@@ -26,16 +27,17 @@ namespace PokeMemo.Models
         [ObservableProperty]
         private Bitmap _imageSource;
 
-        public Deck(string name, string category, string backgroundColour, string foregroundColour, string borderColour, string imageSource)
+        public Deck(string name, string category, PokemonType type)
         {
             Id = _nextId++;
             Name = name;
             Category = category;
+            Type = type;
             Cards = new List<Card>();
-            _backgroundColour = backgroundColour;
-            _foregroundColour = foregroundColour;
-            _borderColour = borderColour;
-            _imageSource = ImageHelper.LoadFromResource(imageSource);
+            _backgroundColour = type.BackgroundColour;
+            _foregroundColour = type.ForegroundColour;
+            _borderColour = type.BorderColour;
+            _imageSource = ImageHelper.LoadFromResource(type.ImageSource);
         }
 
         public void AddCard(Card card)

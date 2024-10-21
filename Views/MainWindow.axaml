@@ -11,7 +11,7 @@
         Title="PokeMemo"
 		CanResize="True"
         TransparencyLevelHint="AcrylicBlur"
-        Background="Transparent">
+        Background="#80000000">
 	<Window.DataContext>
 		<vm:MainWindowViewModel/>
 	</Window.DataContext>
