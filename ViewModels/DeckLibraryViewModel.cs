@@ -45,8 +45,11 @@ namespace PokeMemo.ViewModels
         }
         private void NavigateToQuizView()
         {
-            var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
-            mainWindowViewModel?.NavigateToQuizViewCommand.Execute(null);
+            if (DeckLibrary.SelectedDeck != null)
+            {
+                var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
+                mainWindowViewModel?.NavigateToQuizViewCommand.Execute(null);
+            }
         }
         private void NavigateToPreviewDeckView()
         {
