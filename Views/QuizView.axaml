@@ -40,7 +40,7 @@
 			Margin="50,20,50,100">
 
 			<TextBlock
-				Text="{Binding CurrentCard.Question}"
+				Text="{Binding CurrentCardText}"
 				Foreground="{Binding DeckLibrary.SelectedDeck.ForegroundColour}"
 				FontSize="40"
 				FontWeight="Bold"
@@ -48,7 +48,8 @@
 				VerticalAlignment="Center"
 				TextWrapping="Wrap"
 				TextAlignment="Center"
-				Padding="20" />
+				Padding="20" 
+				PointerPressed="InputElement_OnPointerPressed"/>
 		</Border>
 
 		<!-- Buttons -->
