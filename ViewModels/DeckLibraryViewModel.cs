@@ -53,5 +53,6 @@ namespace PokeMemo.ViewModels
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
             mainWindowViewModel?.NavigateToPreviewDeckViewCommand.Execute(null);
         }
+
     }
 }

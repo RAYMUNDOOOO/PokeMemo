@@ -13,6 +13,34 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Remove="Assets\arcanine.png" />
+      <None Remove="Assets\blastoise.png" />
+      <None Remove="Assets\charizard.png" />
+      <None Remove="Assets\charmander.png" />
+      <None Remove="Assets\charmeleon.png" />
+      <None Remove="Assets\electabuzz.png" />
+      <None Remove="Assets\electrode.png" />
+      <None Remove="Assets\fire-type.png" />
+      <None Remove="Assets\gloom.png" />
+      <None Remove="Assets\golduck.png" />
+      <None Remove="Assets\growlithe.png" />
+      <None Remove="Assets\ivysaur.png" />
+      <None Remove="Assets\jolteon.png" />
+      <None Remove="Assets\ninetales.png" />
+      <None Remove="Assets\oddish.png" />
+      <None Remove="Assets\poliwag.png" />
+      <None Remove="Assets\poliwhirl.png" />
+      <None Remove="Assets\poliwrath.png" />
+      <None Remove="Assets\psyduck.png" />
+      <None Remove="Assets\raichu.png" />
+      <None Remove="Assets\venusaur.png" />
+      <None Remove="Assets\vileplume.png" />
+      <None Remove="Assets\voltorb.png" />
+      <None Remove="Assets\vulpix.png" />
+      <None Remove="Assets\wartortle.png" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.1.3" />
         <PackageReference Include="Avalonia.Desktop" Version="11.1.3" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.3" />
