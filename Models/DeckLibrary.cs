@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
+using PokeMemo.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PokeMemo.Models
 {
-    public class DeckLibrary : ObservableObject
+    public partial class DeckLibrary : ObservableObject
     {
         public List<Deck> Decks { get; set; }
 
@@ -19,38 +21,48 @@ namespace PokeMemo.Models
             set => SetProperty(ref _selectedDeck, value);
         }
 
+        [ObservableProperty]
+        private Quiz _currentQuiz;
+
         public DeckLibrary()
         {
             Decks = new List<Deck>
                 {
-                    new Deck("Multiplication Deck", "Maths", "#87BBF1", "Black", "#4D91D7", "/Assets/water-type.png"),
-                    new Deck("Addition Deck", "Maths", "#94D88D", "Black", "#61BB59", "/Assets/grass-type.png")
+                    CreateDeck("Multiplication Deck", "Maths", "water"),
+                    CreateDeck("Addition Deck", "Maths", "electric")
                 };
 
-            var multiplicationDeck = Decks.FirstOrDefault(d => d.Name == "Multiplication Deck");
-            multiplicationDeck.Cards.Add(new Card("What is 1 x 1?", "1", "#87BBF1", "Black", "#4D91D7", "/Assets/squirtle.png"));
-            multiplicationDeck.Cards.Add(new Card("What is 1 x 2?", "2", "#87BBF1", "Black", "#4D91D7", "/Assets/squirtle.png"));
-            multiplicationDeck.Cards.Add(new Card("What is 1 x 3?", "3", "#87BBF1", "Black", "#4D91D7", "/Assets/squirtle.png"));
-            multiplicationDeck.Cards.Add(new Card("What is 1 x 4?", "4", "#87BBF1", "Black", "#4D91D7", "/Assets/squirtle.png"));
-            multiplicationDeck.Cards.Add(new Card("What is 1 x 5?", "5", "#87BBF1", "Black", "#4D91D7", "/Assets/squirtle.png"));
-            multiplicationDeck.Cards.Add(new Card("What is 1 x 6?", "6", "#87BBF1", "Black", "#4D91D7", "/Assets/squirtle.png"));
-            multiplicationDeck.Cards.Add(new Card("What is 1 x 7?", "7", "#87BBF1", "Black", "#4D91D7", "/Assets/squirtle.png"));
-            multiplicationDeck.Cards.Add(new Card("What is 1 x 8?", "8", "#87BBF1", "Black", "#4D91D7", "/Assets/squirtle.png"));
-            multiplicationDeck.Cards.Add(new Card("What is 1 x 9?", "9", "#87BBF1", "Black", "#4D91D7", "/Assets/squirtle.png"));
+            var multDeck = Decks.FirstOrDefault(d => d.Name == "Multiplication Deck");
+            multDeck.Cards.Add(new Card("What is 1 x 1?", "1", multDeck.BackgroundColour, multDeck.ForegroundColour, multDeck.BorderColour, ImageHelper.GetImageByType(multDeck.Type)));
+            multDeck.Cards.Add(new Card("What is 1 x 2?", "2", multDeck.BackgroundColour, multDeck.ForegroundColour, multDeck.BorderColour, ImageHelper.GetImageByType(multDeck.Type)));
+            multDeck.Cards.Add(new Card("What is 1 x 3?", "3", multDeck.BackgroundColour, multDeck.ForegroundColour, multDeck.BorderColour, ImageHelper.GetImageByType(multDeck.Type)));
+            multDeck.Cards.Add(new Card("What is 1 x 4?", "4", multDeck.BackgroundColour, multDeck.ForegroundColour, multDeck.BorderColour, ImageHelper.GetImageByType(multDeck.Type)));
+            multDeck.Cards.Add(new Card("What is 1 x 5?", "5", multDeck.BackgroundColour, multDeck.ForegroundColour, multDeck.BorderColour, ImageHelper.GetImageByType(multDeck.Type)));
+            multDeck.Cards.Add(new Card("What is 1 x 6?", "6", multDeck.BackgroundColour, multDeck.ForegroundColour, multDeck.BorderColour, ImageHelper.GetImageByType(multDeck.Type)));
+            multDeck.Cards.Add(new Card("What is 1 x 7?", "7", multDeck.BackgroundColour, multDeck.ForegroundColour, multDeck.BorderColour, ImageHelper.GetImageByType(multDeck.Type)));
+            multDeck.Cards.Add(new Card("What is 1 x 8?", "8", multDeck.BackgroundColour, multDeck.ForegroundColour, multDeck.BorderColour, ImageHelper.GetImageByType(multDeck.Type)));
+            multDeck.Cards.Add(new Card("What is 1 x 9?", "9", multDeck.BackgroundColour, multDeck.ForegroundColour, multDeck.BorderColour, ImageHelper.GetImageByType(multDeck.Type)));
 
-            var additionDeck = Decks.FirstOrDefault(d => d.Name == "Addition Deck");
-            additionDeck.Cards.Add(new Card("What is 1 + 1?", "2", "#94D88D", "Black", "#61BB59", "/Assets/bulbasaur.png"));
-            additionDeck.Cards.Add(new Card("What is 2 + 2?", "4", "#94D88D", "Black", "#61BB59", "/Assets/bulbasaur.png"));
-            additionDeck.Cards.Add(new Card("What is 3 + 3?", "6", "#94D88D", "Black", "#61BB59", "/Assets/bulbasaur.png"));
-            additionDeck.Cards.Add(new Card("What is 4 + 4?", "8", "#94D88D", "Black", "#61BB59", "/Assets/bulbasaur.png"));
-            additionDeck.Cards.Add(new Card("What is 5 + 5?", "10", "#94D88D", "Black", "#61BB59", "/Assets/bulbasaur.png"));
-            additionDeck.Cards.Add(new Card("What is 6 + 6?", "12", "#94D88D", "Black", "#61BB59", "/Assets/bulbasaur.png"));
-            additionDeck.Cards.Add(new Card("What is 7 + 7?", "14", "#94D88D", "Black", "#61BB59", "/Assets/bulbasaur.png"));
-            additionDeck.Cards.Add(new Card("What is 8 + 8?", "16", "#94D88D", "Black", "#61BB59", "/Assets/bulbasaur.png"));
-            additionDeck.Cards.Add(new Card("What is 9 + 9?", "18", "#94D88D", "Black", "#61BB59", "/Assets/bulbasaur.png"));
+            var addnDeck = Decks.FirstOrDefault(d => d.Name == "Addition Deck");
+            addnDeck.Cards.Add(new Card("What is 1 + 1?", "2", addnDeck.BackgroundColour, addnDeck.ForegroundColour, addnDeck.BorderColour, ImageHelper.GetImageByType(addnDeck.Type)));
+            addnDeck.Cards.Add(new Card("What is 2 + 2?", "4", addnDeck.BackgroundColour, addnDeck.ForegroundColour, addnDeck.BorderColour, ImageHelper.GetImageByType(addnDeck.Type)));
+            addnDeck.Cards.Add(new Card("What is 3 + 3?", "6", addnDeck.BackgroundColour, addnDeck.ForegroundColour, addnDeck.BorderColour, ImageHelper.GetImageByType(addnDeck.Type)));
+            addnDeck.Cards.Add(new Card("What is 4 + 4?", "8", addnDeck.BackgroundColour, addnDeck.ForegroundColour, addnDeck.BorderColour, ImageHelper.GetImageByType(addnDeck.Type)));
+            addnDeck.Cards.Add(new Card("What is 5 + 5?", "10", addnDeck.BackgroundColour, addnDeck.ForegroundColour, addnDeck.BorderColour, ImageHelper.GetImageByType(addnDeck.Type)));
+            addnDeck.Cards.Add(new Card("What is 6 + 6?", "12", addnDeck.BackgroundColour, addnDeck.ForegroundColour, addnDeck.BorderColour, ImageHelper.GetImageByType(addnDeck.Type)));
+            addnDeck.Cards.Add(new Card("What is 7 + 7?", "14", addnDeck.BackgroundColour, addnDeck.ForegroundColour, addnDeck.BorderColour, ImageHelper.GetImageByType(addnDeck.Type)));
+            addnDeck.Cards.Add(new Card("What is 8 + 8?", "16", addnDeck.BackgroundColour, addnDeck.ForegroundColour, addnDeck.BorderColour, ImageHelper.GetImageByType(addnDeck.Type)));
+            addnDeck.Cards.Add(new Card("What is 9 + 9?", "18", addnDeck.BackgroundColour, addnDeck.ForegroundColour, addnDeck.BorderColour, ImageHelper.GetImageByType(addnDeck.Type)));
 
             SelectedDeck = null;
         }
+
+        private Deck CreateDeck(string name, string category, string type)
+        {
+            var typeName = ImageHelper.PokemonTypes[type.ToLower()];
+            return new Deck(name, category, typeName);
+        }
     }
+
 }
 
