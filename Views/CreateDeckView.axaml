@@ -58,7 +58,7 @@
         <!-- Buttons to save or create new card -->
         <DockPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
-                <Button Content="Create Deck" />
+                <Button Content="Create Deck" Command="{Binding NavigateToCreateCardViewCommand}"/>
             </StackPanel>
         </DockPanel>
     </StackPanel>
