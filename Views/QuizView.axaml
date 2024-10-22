@@ -16,18 +16,18 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<TextBlock 
-			Text="{Binding DeckLibrary.SelectedDeck.Name, StringFormat='Quiz: {0}'}" 
-			FontSize="24" 
+		<TextBlock
+			Text="{Binding DeckLibrary.SelectedDeck.Name, StringFormat='Quiz: {0}'}"
+			FontSize="24"
 			FontWeight="Bold"
 			HorizontalAlignment="Left"
 			Margin="10" />
-		<Button 
-			Content="Back to Deck Library" 
-			Command="{Binding NavigateToDeckLibraryViewCommand}" 
-			HorizontalAlignment="Right" 
-			VerticalAlignment="Top" 
-			Padding="40" 
+		<Button
+			Content="Back to Deck Library"
+			Command="{Binding NavigateToDeckLibraryViewCommand}"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Top"
+			Padding="40"
 			Margin="10" />
 
 		<!-- Card Box -->
@@ -38,37 +38,63 @@
 			BorderThickness="15"
 			CornerRadius="10"
 			Margin="50,20,50,100">
+			<Grid ColumnDefinitions="*,Auto,*">
+				<StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+					<Image
+						Source="{Binding CurrentCard.ImageSource}"
+						Stretch="None"
+						Margin="80" />
+					<Image
+						Source="{Binding CurrentCard.ImageSource}"
+						Stretch="None"
+						Margin="80" />
+				</StackPanel>
+				<StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+					<TextBlock
+						Text="{Binding CurrentCardText}"
+						Foreground="{Binding DeckLibrary.SelectedDeck.ForegroundColour}"
+						FontSize="40"
+						FontWeight="Bold"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						TextWrapping="Wrap"
+						TextAlignment="Center"
+						Padding="20"
+						PointerPressed="InputElement_OnPointerPressed"/>
+				</StackPanel>
+				<StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+					<Image
+						Source="{Binding CurrentCard.ImageSource}"
+						Stretch="None"
+						Margin="80" />
+					<Image
+						Source="{Binding CurrentCard.ImageSource}"
+						Stretch="None"
+						Margin="80" />
+				</StackPanel>
+			</Grid>
 
-			<TextBlock
-				Text="{Binding CurrentCardText}"
-				Foreground="{Binding DeckLibrary.SelectedDeck.ForegroundColour}"
-				FontSize="40"
-				FontWeight="Bold"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center"
-				TextWrapping="Wrap"
-				TextAlignment="Center"
-				Padding="20" 
-				PointerPressed="InputElement_OnPointerPressed"/>
 		</Border>
 
 		<!-- Buttons -->
-		<DockPanel 
+		<DockPanel
 			Grid.Row="2"
 			HorizontalAlignment="Stretch"
 			VerticalAlignment="Bottom"
-			Margin="40" >
+			Margin="0" >
 
 			<Button
 				Content="Don't Remember"
 				Command="{Binding DontRememberCommand}"
 				HorizontalAlignment="Left"
-				Padding="20" />
+				Padding="20"
+				Margin="40,10" />
 			<Button
 				Content="Remember"
 				Command="{Binding RememberCommand}"
 				HorizontalAlignment="Right"
-				Padding="20" />
+				Padding="20"
+				Margin="40,10" />
 		</DockPanel>
 	</Grid>
 
