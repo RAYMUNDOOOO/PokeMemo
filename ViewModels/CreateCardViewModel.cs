@@ -23,7 +23,6 @@ namespace PokeMemo.ViewModels
             set
             {
                 _question = value;
-                this.RaiseAndSetIfChanged(ref _question, value);
             }
         }
 
@@ -35,7 +34,6 @@ namespace PokeMemo.ViewModels
             set
             {
                 _answer = value;
-                this.RaiseAndSetIfChanged(ref _answer, value);
             }
         }
 
@@ -46,7 +44,6 @@ namespace PokeMemo.ViewModels
             set
             {
                 _isQuestionEmpty = value;
-                this.RaiseAndSetIfChanged(ref _isQuestionEmpty, value);
             }
         }
         
@@ -58,7 +55,6 @@ namespace PokeMemo.ViewModels
             set
             {
                 _isAnswerEmpty = value;
-                this.RaiseAndSetIfChanged(ref _isAnswerEmpty, value);
             }
         }
 

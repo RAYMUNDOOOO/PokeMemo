@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using PokeMemo.Models;
 using PokeMemo.Utility;
-using ReactiveUI;
 
 namespace PokeMemo.ViewModels
 {
@@ -19,10 +14,33 @@ namespace PokeMemo.ViewModels
         private DeckLibrary DeckLibrary { get; }
         private List<Card> _shuffledCards;
         private int _currentCardIndex;
-        public Card CurrentCard { get; set; }
+
+        private string _currentCardText;
+
+        public string CurrentCardText
+        {
+            get => _currentCardText;
+            set
+            {
+                _currentCardText = value;
+                OnPropertyChanged(nameof(CurrentCardText));
+            }
+        }
+
+        private Card _currentCard;
+        public Card CurrentCard
+        {
+            get => _currentCard;
+            set
+            {
+                _currentCard = value;
+                OnPropertyChanged(nameof(CurrentCard));
+            }
+        }
 
         public ICommand DontRememberCommand { get; }
         public ICommand RememberCommand { get; }
+        public ICommand RevealAnswerCommand { get; }
 
         public ICommand NavigateToDeckLibraryViewCommand { get; }
         public ICommand NavigateToQuizResultsViewCommand { get; }
@@ -42,17 +60,13 @@ namespace PokeMemo.ViewModels
             _shuffledCards = DeckLibrary.SelectedDeck?.Cards.OrderBy(c => Guid.NewGuid()).ToList();
             _currentCardIndex = 0;
             CurrentCard = _shuffledCards[_currentCardIndex];
+            CurrentCardText = CurrentCard.Question;
 
             DontRememberCommand = new RelayCommand(o => DontRememberCard());
             RememberCommand = new RelayCommand(o => RememberCard());
+            RevealAnswerCommand = new RelayCommand(o => CurrentCardText = CurrentCard.Answer);
             NavigateToDeckLibraryViewCommand = new RelayCommand(o => NavigateToDeckLibraryView());
             NavigateToQuizResultsViewCommand = new RelayCommand(o => NavigateToQuizResultsView());
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void StartNewQuiz()
@@ -78,10 +92,7 @@ namespace PokeMemo.ViewModels
             {
                 _currentCardIndex++;
                 CurrentCard = _shuffledCards[_currentCardIndex];
-                OnPropertyChanged(nameof(CurrentCard));
-                OnPropertyChanged(nameof(CurrentCard.Question));
-
-                Console.WriteLine($"CurrentCard: {CurrentCard.Question}");
+                CurrentCardText = CurrentCard.Question;
             }
             else
             {

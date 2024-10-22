@@ -3,10 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:local="clr-namespace:PokeMemo.ViewModels"
-			 xmlns:models="clr-namespace:PokeMemo.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="PokeMemo.Views.QuizView"
-			 x:CompileBindings="False">
+			 x:DataType="local:QuizViewModel"
+             x:CompileBindings="False">
 	<Design.DataContext>
 		<local:QuizViewModel/>
 	</Design.DataContext>
@@ -40,7 +40,7 @@
 			Margin="50,20,50,100">
 
 			<TextBlock
-				Text="{Binding CurrentCard.Question}"
+				Text="{Binding CurrentCardText}"
 				Foreground="{Binding DeckLibrary.SelectedDeck.ForegroundColour}"
 				FontSize="40"
 				FontWeight="Bold"
@@ -48,7 +48,8 @@
 				VerticalAlignment="Center"
 				TextWrapping="Wrap"
 				TextAlignment="Center"
-				Padding="20" />
+				Padding="20" 
+				PointerPressed="InputElement_OnPointerPressed"/>
 		</Border>
 
 		<!-- Buttons -->
