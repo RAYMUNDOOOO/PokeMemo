@@ -13,6 +13,9 @@ namespace PokeMemo.ViewModels
     public class CreateCardViewModel : ViewModelBase
     {
         public Deck? CurrentDeck { get; }
+
+        private Card? _cardToBeModified;
+        
         /*
          * Fields used for the creation of a card; generating the card preview
          * and determining which controls are visible
@@ -63,6 +66,18 @@ namespace PokeMemo.ViewModels
             }
         }
 
+        private string _leftButtonText;
+
+        public string LeftButtonText
+        {
+            get => _leftButtonText;
+            set
+            {
+                _leftButtonText = value;
+                OnPropertyChanged();
+            }
+        }
+
         /*
          * Setting up view navigation by creating RelayCommands that call on functions
          * that update the CurrentViewModel in MainWindowViewModel
@@ -71,23 +86,39 @@ namespace PokeMemo.ViewModels
         public ICommand SaveCardAndExitCommand { get; }
         public ICommand SaveAndCreateNextCardCommand { get; }
 
+        /*
+         * Initialise the view with empty fields to create a new card and
+         * set the content of the button to indicate to the user that they
+         * are creating a new card, adding it to the deck and then
+         * exiting.
+         */
         public CreateCardViewModel()
         {
             CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
             NavigateToPreviewDeckViewCommand = new RelayCommand(NavigateToPreviewDeckView);
             SaveCardAndExitCommand = new RelayCommand(SaveCardAndExit);
             SaveAndCreateNextCardCommand = new RelayCommand(SaveAndCreateNextCard);
+
+            LeftButtonText = "Save card and exit";
         }
 
-        public CreateCardViewModel(string? question, string? answer)
+        /*
+         * If there is a card to be modified, set this and the corresponding fields
+         * in the view to its existing Question and Answer fields. This will also
+         * set the button to indicate to the user that they're modifying an existing
+         * card and then exiting.
+         */
+        public CreateCardViewModel(Card? cardToBeModified)
         {
             CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
             NavigateToPreviewDeckViewCommand = new RelayCommand(NavigateToPreviewDeckView);
             SaveCardAndExitCommand = new RelayCommand(SaveCardAndExit);
             SaveAndCreateNextCardCommand = new RelayCommand(SaveAndCreateNextCard);
 
-            Question = question;
-            Answer = answer;
+            _cardToBeModified = cardToBeModified;
+            Question = cardToBeModified?.Question;
+            Answer = cardToBeModified?.Answer;
+            LeftButtonText = "Modify card and exit";
         }
 
         private void NavigateToPreviewDeckView()
@@ -98,6 +129,14 @@ namespace PokeMemo.ViewModels
 
         private void SaveCardAndExit()
         {
+            if (_cardToBeModified != null)
+            {
+               _cardToBeModified.Question = Question;
+               _cardToBeModified.Answer = Answer;
+               NavigateToPreviewDeckView();
+               return;
+            }
+            
             if (CheckIfFieldsAreValid())
             {
                 CreateCardAndRefreshFields();

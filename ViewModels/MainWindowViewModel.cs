@@ -47,6 +47,10 @@ namespace PokeMemo.ViewModels
             CurrentView = new PreviewDeckViewModel();
         }
 
+        /*
+         * If we have received a selectedCard, lets move to the CreateCardView with the
+         * Question and Answer fields pre-filled with the selected card's question and answer.
+         */
         private void NavigateToCreateCardView(Card? selectedCard)
         {
             if (selectedCard == null)
@@ -55,7 +59,7 @@ namespace PokeMemo.ViewModels
             }
             else
             {
-                CurrentView = new CreateCardViewModel(selectedCard?.Question, selectedCard?.Answer);
+                CurrentView = new CreateCardViewModel(selectedCard);
             }
         }
         private void NavigateToQuizView()
