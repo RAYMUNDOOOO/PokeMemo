@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls.ApplicationLifetimes;
+﻿using System;
+using System.Collections.Generic;
+using Avalonia.Controls.ApplicationLifetimes;
 using PokeMemo.Models;
 using PokeMemo.Utility;
 using System.Windows.Input;
@@ -13,6 +15,8 @@ namespace PokeMemo.ViewModels
         public ICommand NavigateToDeckLibraryViewCommand { get; }
         public ICommand NavigateToCreateCardViewCommand { get; }
         public ICommand DeleteSelectedCardCommand { get; }
+        
+        public int SelectedCardIndex { get; set; }
 
         public PreviewDeckViewModel()
         {
@@ -36,6 +40,8 @@ namespace PokeMemo.ViewModels
 
         private void DeleteSelectedCard()
         {
+            DeckLibrary?.SelectedDeck?.Cards.RemoveAt(SelectedCardIndex);
+            OnPropertyChanged(nameof(DeckLibrary.SelectedDeck.Cards));
         }
     }
 }

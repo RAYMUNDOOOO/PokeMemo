@@ -120,7 +120,8 @@
 							<ListBox 
 								ItemsSource="{Binding DeckLibrary.SelectedDeck.Cards}" 
 								Margin="0" 
-								SelectionMode="Single">
+								SelectionMode="Multiple"
+								SelectedIndex="{Binding SelectedCardIndex}">
 								
 								<ListBox.ItemsPanel>
 									<ItemsPanelTemplate>
