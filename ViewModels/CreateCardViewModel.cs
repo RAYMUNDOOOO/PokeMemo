@@ -12,7 +12,7 @@ namespace PokeMemo.ViewModels
 {
     public class CreateCardViewModel : ViewModelBase
     {
-        public Deck CurrentDeck { get; }
+        public Deck? CurrentDeck { get; }
         /*
          * Fields used for the creation of a card; generating the card preview
          * and determining which controls are visible
@@ -77,6 +77,17 @@ namespace PokeMemo.ViewModels
             NavigateToPreviewDeckViewCommand = new RelayCommand(NavigateToPreviewDeckView);
             SaveCardAndExitCommand = new RelayCommand(SaveCardAndExit);
             SaveAndCreateNextCardCommand = new RelayCommand(SaveAndCreateNextCard);
+        }
+
+        public CreateCardViewModel(string? question, string? answer)
+        {
+            CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
+            NavigateToPreviewDeckViewCommand = new RelayCommand(NavigateToPreviewDeckView);
+            SaveCardAndExitCommand = new RelayCommand(SaveCardAndExit);
+            SaveAndCreateNextCardCommand = new RelayCommand(SaveAndCreateNextCard);
+
+            Question = question;
+            Answer = answer;
         }
 
         private void NavigateToPreviewDeckView()

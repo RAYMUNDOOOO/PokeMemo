@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Avalonia.Media.Imaging;
 using PokeMemo.Utility;
 
@@ -13,7 +14,7 @@ namespace PokeMemo.Models
         public string Name { get; set; }
         public string Category { get; set; }
         public PokemonType Type { get; set; }
-        public List<Card> Cards { get; set; }
+        public ObservableCollection<Card> Cards { get; set; }
 
         [ObservableProperty]
         private string _backgroundColour;
@@ -33,7 +34,7 @@ namespace PokeMemo.Models
             Name = name;
             Category = category;
             Type = type;
-            Cards = new List<Card>();
+            Cards = new ObservableCollection<Card>();
             _backgroundColour = type.BackgroundColour;
             _foregroundColour = type.ForegroundColour;
             _borderColour = type.BorderColour;
