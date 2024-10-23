@@ -1,8 +1,6 @@
 ﻿using Avalonia.Controls.ApplicationLifetimes;
 using PokeMemo.Models;
 using PokeMemo.Utility;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Avalonia;
 using CommunityToolkit.Mvvm.Input;
@@ -14,12 +12,14 @@ namespace PokeMemo.ViewModels
         private DeckLibrary DeckLibrary { get; }
         public ICommand NavigateToDeckLibraryViewCommand { get; }
         public ICommand NavigateToCreateCardViewCommand { get; }
+        public ICommand DeleteSelectedCardCommand { get; }
 
         public PreviewDeckViewModel()
         {
             DeckLibrary = DataService.Instance.DeckLibrary;
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
             NavigateToCreateCardViewCommand = new RelayCommand(NavigateToCreateCardView);
+            DeleteSelectedCardCommand = new RelayCommand(DeleteSelectedCard);
         }
 
         private void NavigateToDeckLibraryView()
@@ -32,6 +32,10 @@ namespace PokeMemo.ViewModels
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
             mainWindowViewModel?.NavigateToCreateCardViewCommand.Execute(null);
+        }
+
+        private void DeleteSelectedCard()
+        {
         }
     }
 }

@@ -166,6 +166,13 @@
 								</ListBox.ItemTemplate>
 							</ListBox>
 						</ScrollViewer>
+						<StackPanel>
+							<Button Background="White"
+							        Foreground="Black"
+							        Content="Delete card" 
+							        HorizontalAlignment="Right"
+							        Command="{Binding DeleteSelectedCardCommand}"/>
+						</StackPanel>
 					</Grid>
 				</SplitView.Content>
 		</SplitView>
