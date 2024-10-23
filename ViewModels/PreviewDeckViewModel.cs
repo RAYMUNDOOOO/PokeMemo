@@ -1,11 +1,12 @@
-using System;
+﻿using System;
 using Avalonia.Controls.ApplicationLifetimes;
 using PokeMemo.Models;
 using PokeMemo.Utility;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Avalonia;
 using CommunityToolkit.Mvvm.Input;
-using DynamicData;
 
 namespace PokeMemo.ViewModels
 {
@@ -49,19 +50,6 @@ namespace PokeMemo.ViewModels
         private void ModifyCard()
         {
             NavigateToCreateCardViewCommand.Execute(SelectedCard);
-        }
-
-        private void DeleteSelectedCards()
-        {
-            try
-            {
-                DeckLibrary?.SelectedDeck?.Cards.RemoveMany(SelectedCards);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Unable to remove selected cards. {0}", e.Message);
-                throw;
-            }
         }
     }
 }
