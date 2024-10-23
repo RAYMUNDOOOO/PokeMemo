@@ -39,6 +39,18 @@ namespace PokeMemo.ViewModels
                 OnPropertyChanged();
             }
         }
+        
+        private string? _type;
+
+        public string? Type
+        {
+            get => _type;
+            set
+            {
+                _type = value;
+                OnPropertyChanged();
+            }
+        }
 
         private bool _isNameEmpty;
         public bool IsNameEmpty
@@ -105,14 +117,11 @@ namespace PokeMemo.ViewModels
 
         private void CreateDeckAndRefreshFields()
         {
-            /* Add a new card to the currently selected deck */
-            var backgroundColour = CurrentDeck?.BackgroundColour ?? "#FFFFFF";
-            var foregroundColour = CurrentDeck?.ForegroundColour ?? "#000000";
-            var borderColour = CurrentDeck?.BorderColour ?? "#000000";
-            var imagePath = ImageHelper.GetImageByType(CurrentDeck?.Type);
+            string type = "grass";
             
-            /* Fix this line of code. */
-            CurrentDeck?.AddCard(new Card(Name, Category, backgroundColour, foregroundColour, borderColour, imagePath));
+            var typeName = ImageHelper.PokemonTypes[type.ToLower()];
+            
+            DataService.Instance.DeckLibrary.Decks.Add(new Deck(Name, Category, typeName));
             
             /* Refresh the fields and update the corresponding view */
             Name = string.Empty;
