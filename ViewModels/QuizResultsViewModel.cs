@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media.Imaging;
+using CommunityToolkit.Mvvm.Input;
 using PokeMemo.Models;
 using PokeMemo.Utility;
 
@@ -42,7 +36,7 @@ namespace PokeMemo.ViewModels
         public QuizResultsViewModel()
         {
             DeckLibrary = DataService.Instance.DeckLibrary;
-            NavigateToDeckLibraryViewCommand = new RelayCommand(o => NavigateToDeckLibraryView());
+            NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
         }
 
         public string GetResultMessage(int score, int totalCards)

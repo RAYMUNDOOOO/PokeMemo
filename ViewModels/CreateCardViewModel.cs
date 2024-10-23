@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using CommunityToolkit.Mvvm.Input;
 using PokeMemo.Utility;
 using PokeMemo.Models;
 using ReactiveUI;
@@ -23,6 +24,7 @@ namespace PokeMemo.ViewModels
             set
             {
                 _question = value;
+                OnPropertyChanged();
             }
         }
 
@@ -34,6 +36,7 @@ namespace PokeMemo.ViewModels
             set
             {
                 _answer = value;
+                OnPropertyChanged();
             }
         }
 
@@ -44,6 +47,7 @@ namespace PokeMemo.ViewModels
             set
             {
                 _isQuestionEmpty = value;
+                OnPropertyChanged();
             }
         }
         
@@ -55,6 +59,7 @@ namespace PokeMemo.ViewModels
             set
             {
                 _isAnswerEmpty = value;
+                OnPropertyChanged();
             }
         }
 
@@ -66,19 +71,12 @@ namespace PokeMemo.ViewModels
         public ICommand SaveCardAndExitCommand { get; }
         public ICommand SaveAndCreateNextCardCommand { get; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public CreateCardViewModel()
         {
             CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
-            NavigateToPreviewDeckViewCommand = new RelayCommand(o => NavigateToPreviewDeckView());
-            SaveCardAndExitCommand = new RelayCommand(o => SaveCardAndExit());
-            SaveAndCreateNextCardCommand = new RelayCommand(o => SaveAndCreateNextCard());
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            NavigateToPreviewDeckViewCommand = new RelayCommand(NavigateToPreviewDeckView);
+            SaveCardAndExitCommand = new RelayCommand(SaveCardAndExit);
+            SaveAndCreateNextCardCommand = new RelayCommand(SaveAndCreateNextCard);
         }
 
         private void NavigateToPreviewDeckView()
@@ -89,25 +87,19 @@ namespace PokeMemo.ViewModels
 
         private void SaveCardAndExit()
         {
-            if (!CheckIfFieldsAreValid())
+            if (CheckIfFieldsAreValid())
             {
-                // TODO: Update the view
-                return;
+                CreateCardAndRefreshFields();
+                NavigateToPreviewDeckView();
             }
-            
-            CreateCardAndRefreshFields();
-            NavigateToPreviewDeckView();
         }
 
         private void SaveAndCreateNextCard()
         {
-            if (!CheckIfFieldsAreValid())
+            if (CheckIfFieldsAreValid())
             {
-                // TODO: Update the view
-                return;
+                CreateCardAndRefreshFields();
             }
-            
-            CreateCardAndRefreshFields();
         }
 
         private bool CheckIfFieldsAreValid()

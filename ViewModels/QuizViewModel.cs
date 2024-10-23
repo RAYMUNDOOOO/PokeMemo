@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using CommunityToolkit.Mvvm.Input;
 using PokeMemo.Models;
 using PokeMemo.Utility;
 
@@ -62,11 +63,11 @@ namespace PokeMemo.ViewModels
             CurrentCard = _shuffledCards[_currentCardIndex];
             CurrentCardText = CurrentCard.Question;
 
-            DontRememberCommand = new RelayCommand(o => DontRememberCard());
-            RememberCommand = new RelayCommand(o => RememberCard());
-            RevealAnswerCommand = new RelayCommand(o => CurrentCardText = CurrentCard.Answer);
-            NavigateToDeckLibraryViewCommand = new RelayCommand(o => NavigateToDeckLibraryView());
-            NavigateToQuizResultsViewCommand = new RelayCommand(o => NavigateToQuizResultsView());
+            DontRememberCommand = new RelayCommand(DontRememberCard);
+            RememberCommand = new RelayCommand(RememberCard);
+            RevealAnswerCommand = new RelayCommand(RevealAnswer);
+            NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
+            NavigateToQuizResultsViewCommand = new RelayCommand(NavigateToQuizResultsView);
         }
 
         private void StartNewQuiz()
@@ -84,6 +85,11 @@ namespace PokeMemo.ViewModels
         {
             DeckLibrary.CurrentQuiz.Score++;
             NextCard();
+        }
+
+        private void RevealAnswer()
+        {
+            CurrentCardText = CurrentCard.Answer;
         }
 
         private void NextCard()
