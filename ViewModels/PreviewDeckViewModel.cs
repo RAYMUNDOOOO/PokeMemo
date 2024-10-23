@@ -6,6 +6,7 @@ using PokeMemo.Utility;
 using System.Windows.Input;
 using Avalonia;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData;
 
 namespace PokeMemo.ViewModels
 {
@@ -16,14 +17,16 @@ namespace PokeMemo.ViewModels
         public ICommand NavigateToCreateCardViewCommand { get; }
         public ICommand DeleteSelectedCardCommand { get; }
         
-        public int SelectedCardIndex { get; set; }
+        public List<Card> SelectedCards { get; set; }
 
         public PreviewDeckViewModel()
         {
             DeckLibrary = DataService.Instance.DeckLibrary;
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
             NavigateToCreateCardViewCommand = new RelayCommand(NavigateToCreateCardView);
-            DeleteSelectedCardCommand = new RelayCommand(DeleteSelectedCard);
+            DeleteSelectedCardCommand = new RelayCommand(DeleteSelectedCards);
+            
+            SelectedCards = new List<Card>();
         }
 
         private void NavigateToDeckLibraryView()
@@ -38,10 +41,17 @@ namespace PokeMemo.ViewModels
             mainWindowViewModel?.NavigateToCreateCardViewCommand.Execute(null);
         }
 
-        private void DeleteSelectedCard()
+        private void DeleteSelectedCards()
         {
-            DeckLibrary?.SelectedDeck?.Cards.RemoveAt(SelectedCardIndex);
-            OnPropertyChanged(nameof(DeckLibrary.SelectedDeck.Cards));
+            try
+            {
+                DeckLibrary?.SelectedDeck?.Cards.RemoveMany(SelectedCards);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

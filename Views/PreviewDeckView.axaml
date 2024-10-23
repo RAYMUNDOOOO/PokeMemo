@@ -121,7 +121,8 @@
 								ItemsSource="{Binding DeckLibrary.SelectedDeck.Cards}" 
 								Margin="0" 
 								SelectionMode="Multiple"
-								SelectedIndex="{Binding SelectedCardIndex}">
+								SelectedIndex="{Binding SelectedCardIndex}"
+								SelectedItems="{Binding SelectedCards}">
 								
 								<ListBox.ItemsPanel>
 									<ItemsPanelTemplate>
