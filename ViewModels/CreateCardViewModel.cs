@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using CommunityToolkit.Mvvm.Input;
 using PokeMemo.Utility;
 using PokeMemo.Models;
 using ReactiveUI;
@@ -71,9 +72,9 @@ namespace PokeMemo.ViewModels
         public CreateCardViewModel()
         {
             CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
-            NavigateToPreviewDeckViewCommand = new RelayCommand(o => NavigateToPreviewDeckView());
-            SaveCardAndExitCommand = new RelayCommand(o => SaveCardAndExit());
-            SaveAndCreateNextCardCommand = new RelayCommand(o => SaveAndCreateNextCard());
+            NavigateToPreviewDeckViewCommand = new RelayCommand(NavigateToPreviewDeckView);
+            SaveCardAndExitCommand = new RelayCommand(SaveCardAndExit);
+            SaveAndCreateNextCardCommand = new RelayCommand(SaveAndCreateNextCard);
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

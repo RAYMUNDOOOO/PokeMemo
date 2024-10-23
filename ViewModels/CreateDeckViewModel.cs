@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia;
+using CommunityToolkit.Mvvm.Input;
 
 namespace PokeMemo.ViewModels
 {
@@ -19,14 +20,9 @@ namespace PokeMemo.ViewModels
 
         public CreateDeckViewModel()
         {
-            NavigateToDeckLibraryViewCommand = new RelayCommand(o => NavigateToDeckLibraryView());
+            NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
         private void NavigateToDeckLibraryView()
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;

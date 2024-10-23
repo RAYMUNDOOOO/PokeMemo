@@ -2,6 +2,7 @@
 using ReactiveUI;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace PokeMemo.ViewModels
 {
@@ -23,12 +24,12 @@ namespace PokeMemo.ViewModels
 
         public MainWindowViewModel()
         {
-            NavigateToDeckLibraryViewCommand = new RelayCommand(o => NavigateToDeckLibrary());
-            NavigateToCreateDeckViewCommand = new RelayCommand(o => NavigateToCreateDeckView());
-            NavigateToPreviewDeckViewCommand = new RelayCommand(o => NavigateToPreviewDeckView());
-            NavigateToCreateCardViewCommand = new RelayCommand(o => NavigateToCreateCardView());
-            NavigateToQuizViewCommand = new RelayCommand(o => NavigateToQuizView());
-            NavigateToQuizResultsViewCommand = new RelayCommand(o => NavigateToQuizResultsView());
+            NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibrary);
+            NavigateToCreateDeckViewCommand = new RelayCommand(NavigateToCreateDeckView);
+            NavigateToPreviewDeckViewCommand = new RelayCommand(NavigateToPreviewDeckView);
+            NavigateToCreateCardViewCommand = new RelayCommand(NavigateToCreateCardView);
+            NavigateToQuizViewCommand = new RelayCommand(NavigateToQuizView);
+            NavigateToQuizResultsViewCommand = new RelayCommand(NavigateToQuizResultsView);
             CurrentView = new DeckLibraryViewModel();
         }
 
