@@ -63,6 +63,10 @@ namespace PokeMemo.ViewModels
             }
         }
 
+        /*
+         * Setting up view navigation by creating RelayCommands that call on functions
+         * that update the CurrentViewModel in MainWindowViewModel
+         */
         public ICommand NavigateToDeckLibraryViewCommand { get; }
         public ICommand NavigateToCreateCardViewCommand { get; }
 
@@ -73,11 +77,27 @@ namespace PokeMemo.ViewModels
             NavigateToCreateCardViewCommand = new RelayCommand(NavigateToCreateCardView);
         }
         
+        private void NavigateToDeckLibraryView()
+        {
+            var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
+            mainWindowViewModel?.NavigateToDeckLibraryViewCommand.Execute(null);
+        }
+        
+        private void NavigateToCreateCardView()
+        {
+            var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
+            mainWindowViewModel?.NavigateToCreateCardViewCommand.Execute(null);
+            
+            CheckIfFieldsAreValid();
+            CreateDeckAndRefreshFields();
+        }
+        
         private bool CheckIfFieldsAreValid()
         {
             /* Return if either the name or category field is empty */
             IsNameEmpty = string.IsNullOrEmpty(Name);
             IsCategoryEmpty = string.IsNullOrEmpty(Category);
+            
             if (IsNameEmpty || IsCategoryEmpty) return false;
             
             return true;
@@ -90,26 +110,15 @@ namespace PokeMemo.ViewModels
             var foregroundColour = CurrentDeck?.ForegroundColour ?? "#000000";
             var borderColour = CurrentDeck?.BorderColour ?? "#000000";
             var imagePath = ImageHelper.GetImageByType(CurrentDeck?.Type);
+            
+            /* Fix this line of code. */
             CurrentDeck?.AddCard(new Card(Name, Category, backgroundColour, foregroundColour, borderColour, imagePath));
+            
             /* Refresh the fields and update the corresponding view */
             Name = string.Empty;
             Category = string.Empty;
             IsNameEmpty = false;
             IsCategoryEmpty = false;
-        }
-
-        private void NavigateToDeckLibraryView()
-        {
-            var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
-            mainWindowViewModel?.NavigateToDeckLibraryViewCommand.Execute(null);
-        }
-        
-        private void NavigateToCreateCardView()
-        {
-            var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
-            mainWindowViewModel?.NavigateToCreateCardViewCommand.Execute(null);
-            CheckIfFieldsAreValid();
-            CreateDeckAndRefreshFields();
         }
     }
 }
