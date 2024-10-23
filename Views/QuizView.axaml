@@ -1,0 +1,101 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:local="clr-namespace:PokeMemo.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PokeMemo.Views.QuizView"
+			 x:DataType="local:QuizViewModel"
+             x:CompileBindings="False">
+	<Design.DataContext>
+		<local:QuizViewModel/>
+	</Design.DataContext>
+
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<TextBlock
+			Text="{Binding DeckLibrary.SelectedDeck.Name, StringFormat='Quiz: {0}'}"
+			FontSize="24"
+			FontWeight="Bold"
+			HorizontalAlignment="Left"
+			Margin="10" />
+		<Button
+			Content="Back to Deck Library"
+			Command="{Binding NavigateToDeckLibraryViewCommand}"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Top"
+			Padding="40"
+			Margin="10" />
+
+		<!-- Card Box -->
+		<Border
+			Grid.Row="1"
+			Background="{Binding DeckLibrary.SelectedDeck.BackgroundColour}"
+			BorderBrush="{Binding DeckLibrary.SelectedDeck.BorderColour}"
+			BorderThickness="15"
+			CornerRadius="10"
+			Margin="50,20,50,100">
+			<Grid ColumnDefinitions="*,Auto,*">
+				<StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+					<Image
+						Source="{Binding CurrentCard.ImageSource}"
+						Stretch="None"
+						Margin="80" />
+					<Image
+						Source="{Binding CurrentCard.ImageSource}"
+						Stretch="None"
+						Margin="80" />
+				</StackPanel>
+				<StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+					<TextBlock
+						Text="{Binding CurrentCardText}"
+						Foreground="{Binding DeckLibrary.SelectedDeck.ForegroundColour}"
+						FontSize="40"
+						FontWeight="Bold"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						TextWrapping="Wrap"
+						TextAlignment="Center"
+						Padding="20"
+						PointerPressed="InputElement_OnPointerPressed"/>
+				</StackPanel>
+				<StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+					<Image
+						Source="{Binding CurrentCard.ImageSource}"
+						Stretch="None"
+						Margin="80" />
+					<Image
+						Source="{Binding CurrentCard.ImageSource}"
+						Stretch="None"
+						Margin="80" />
+				</StackPanel>
+			</Grid>
+
+		</Border>
+
+		<!-- Buttons -->
+		<DockPanel
+			Grid.Row="2"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Bottom"
+			Margin="0" >
+
+			<Button
+				Content="Don't Remember"
+				Command="{Binding DontRememberCommand}"
+				HorizontalAlignment="Left"
+				Padding="20"
+				Margin="40,10" />
+			<Button
+				Content="Remember"
+				Command="{Binding RememberCommand}"
+				HorizontalAlignment="Right"
+				Padding="20"
+				Margin="40,10" />
+		</DockPanel>
+	</Grid>
+
+</UserControl>

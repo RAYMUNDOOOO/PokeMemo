@@ -1,0 +1,98 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PokeMemo.ViewModels"
+             xmlns:models="clr-namespace:PokeMemo.Models"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PokeMemo.Views.DeckLibraryView"
+			 x:CompileBindings="False">
+	<Design.DataContext>
+		<local:DeckLibraryViewModel/>
+	</Design.DataContext>
+	<StackPanel>
+		<TextBlock 
+			Text="Deck Library" 
+			FontSize="40" 
+			FontWeight="Bold" 
+			TextAlignment="Center" 
+			Margin="40" />
+
+		<!-- Initial Deck Library Display -->
+		<ScrollViewer 
+			HorizontalScrollBarVisibility="Auto" 
+			VerticalScrollBarVisibility="Auto" 
+			AllowAutoHide="False" 
+			Margin="50, 0, 50, 0" >
+			
+			<ListBox 
+				ItemsSource="{Binding DeckLibrary.Decks}" 
+				SelectedItem="{Binding DeckLibrary.SelectedDeck}" 
+				Margin="0" 
+				SelectionMode="Single" >
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel />
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Border 
+							Width="300" 
+							Height="375" 
+							Background="{Binding BackgroundColour}" 
+							BorderBrush="{Binding BorderColour}" 
+							BorderThickness="15" 
+							CornerRadius="10" 
+							Margin="5">
+							<Grid>
+								<TextBlock 
+									Text="{Binding Name}" 
+									Foreground="{Binding ForegroundColour}" 
+									HorizontalAlignment="Center" 
+									VerticalAlignment="Top" 
+									FontSize="30" 
+									FontWeight="Bold" 
+									TextAlignment="Center" 
+									TextWrapping="WrapWithOverflow" 
+									Margin="30,50,30,0"/>
+								<Image Source="{Binding ImageSource}" Stretch="None"></Image>
+								<TextBlock 
+									Text="{Binding Category}" 
+									Foreground="{Binding ForegroundColour}" 
+									HorizontalAlignment="Center" 
+									VerticalAlignment="Bottom" 
+									FontSize="24" 
+									FontWeight="Bold" 
+									TextAlignment="Center" 
+									TextWrapping="WrapWithOverflow" 
+									Margin="30,0,30,50"/>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</ScrollViewer>
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+			<Button 
+				Content="View Deck" 
+				Command="{Binding NavigateToPreviewDeckViewCommand}" 
+				Padding="40" 
+				Margin="20" />
+			<Button 
+				Content="Take Quiz" 
+				Command="{Binding NavigateToQuizViewCommand}" 
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Bottom" 
+				Padding="40" 
+				Margin="30" />
+			<Button 
+				Content="Add New Deck" 
+				Command="{Binding NavigateToCreateDeckViewCommand}" 
+				HorizontalAlignment="Right" 
+				VerticalAlignment="Bottom" 
+				Padding="40" 
+				Margin="0, 10, 50, 30" />
+		</StackPanel>
+	</StackPanel>
+</UserControl>
