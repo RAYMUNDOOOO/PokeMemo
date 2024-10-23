@@ -6,6 +6,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using PokeMemo.Models;
 using PokeMemo.Utility;
+using CommunityToolkit.Mvvm.Input;
 
 namespace PokeMemo.ViewModels
 {
@@ -24,6 +25,18 @@ namespace PokeMemo.ViewModels
             {
                 _currentCardText = value;
                 OnPropertyChanged(nameof(CurrentCardText));
+            }
+        }
+
+        private string _currentCardNumber;
+
+        public string CurrentCardNumber
+        {
+            get => _currentCardNumber;
+            set
+            {
+                _currentCardNumber = value;
+                OnPropertyChanged();
             }
         }
 
@@ -72,6 +85,7 @@ namespace PokeMemo.ViewModels
         private void StartNewQuiz()
         {
             DeckLibrary.CurrentQuiz = new Quiz(DeckLibrary.SelectedDeck.Cards.Count);
+            CurrentCardNumber = $"0 / {DeckLibrary.CurrentQuiz.TotalCards}";
             OnPropertyChanged(nameof(DeckLibrary.CurrentQuiz));
         }
 
@@ -98,6 +112,8 @@ namespace PokeMemo.ViewModels
             {
                 NavigateToQuizResultsView();
             }
+            
+           CurrentCardNumber = $"{_currentCardIndex} / {DeckLibrary.CurrentQuiz.TotalCards}"; 
         }
         private void NavigateToDeckLibraryView()
         {
