@@ -24,6 +24,7 @@ namespace PokeMemo.ViewModels
             set
             {
                 _question = value;
+                OnPropertyChanged();
             }
         }
 
@@ -35,6 +36,7 @@ namespace PokeMemo.ViewModels
             set
             {
                 _answer = value;
+                OnPropertyChanged();
             }
         }
 
@@ -45,6 +47,7 @@ namespace PokeMemo.ViewModels
             set
             {
                 _isQuestionEmpty = value;
+                OnPropertyChanged();
             }
         }
         
@@ -56,6 +59,7 @@ namespace PokeMemo.ViewModels
             set
             {
                 _isAnswerEmpty = value;
+                OnPropertyChanged();
             }
         }
 
@@ -67,19 +71,12 @@ namespace PokeMemo.ViewModels
         public ICommand SaveCardAndExitCommand { get; }
         public ICommand SaveAndCreateNextCardCommand { get; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public CreateCardViewModel()
         {
             CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
             NavigateToPreviewDeckViewCommand = new RelayCommand(NavigateToPreviewDeckView);
             SaveCardAndExitCommand = new RelayCommand(SaveCardAndExit);
             SaveAndCreateNextCardCommand = new RelayCommand(SaveAndCreateNextCard);
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void NavigateToPreviewDeckView()
