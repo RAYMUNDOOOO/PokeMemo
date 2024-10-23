@@ -49,7 +49,7 @@ namespace PokeMemo.ViewModels
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine("Unable to remove selected cards. {0}", e.Message);
                 throw;
             }
         }
