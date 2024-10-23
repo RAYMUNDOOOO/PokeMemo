@@ -1,16 +1,12 @@
-﻿using Avalonia.Controls.ApplicationLifetimes;
+﻿using System;
+using System.Collections.Generic;
+using Avalonia.Controls.ApplicationLifetimes;
 using PokeMemo.Models;
 using PokeMemo.Utility;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia;
+using CommunityToolkit.Mvvm.Input;
+using DynamicData;
 
 namespace PokeMemo.ViewModels
 {
@@ -19,19 +15,20 @@ namespace PokeMemo.ViewModels
         private DeckLibrary DeckLibrary { get; }
         public ICommand NavigateToDeckLibraryViewCommand { get; }
         public ICommand NavigateToCreateCardViewCommand { get; }
+        public ICommand DeleteSelectedCardCommand { get; }
+        
+        public List<Card> SelectedCards { get; set; }
 
         public PreviewDeckViewModel()
         {
             DeckLibrary = DataService.Instance.DeckLibrary;
-            NavigateToDeckLibraryViewCommand = new RelayCommand(o => NavigateToDeckLibraryView());
-            NavigateToCreateCardViewCommand = new RelayCommand(o => NavigateToCreateCardView());
+            NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
+            NavigateToCreateCardViewCommand = new RelayCommand(NavigateToCreateCardView);
+            DeleteSelectedCardCommand = new RelayCommand(DeleteSelectedCards);
+            
+            SelectedCards = new List<Card>();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
         private void NavigateToDeckLibraryView()
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
@@ -42,6 +39,19 @@ namespace PokeMemo.ViewModels
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
             mainWindowViewModel?.NavigateToCreateCardViewCommand.Execute(null);
+        }
+
+        private void DeleteSelectedCards()
+        {
+            try
+            {
+                DeckLibrary?.SelectedDeck?.Cards.RemoveMany(SelectedCards);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unable to remove selected cards. {0}", e.Message);
+                throw;
+            }
         }
     }
 }
