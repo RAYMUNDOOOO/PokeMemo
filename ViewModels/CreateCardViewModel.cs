@@ -87,25 +87,19 @@ namespace PokeMemo.ViewModels
 
         private void SaveCardAndExit()
         {
-            if (!CheckIfFieldsAreValid())
+            if (CheckIfFieldsAreValid())
             {
-                // TODO: Update the view
-                return;
+                CreateCardAndRefreshFields();
+                NavigateToPreviewDeckView();
             }
-            
-            CreateCardAndRefreshFields();
-            NavigateToPreviewDeckView();
         }
 
         private void SaveAndCreateNextCard()
         {
-            if (!CheckIfFieldsAreValid())
+            if (CheckIfFieldsAreValid())
             {
-                // TODO: Update the view
-                return;
+                CreateCardAndRefreshFields();
             }
-            
-            CreateCardAndRefreshFields();
         }
 
         private bool CheckIfFieldsAreValid()
