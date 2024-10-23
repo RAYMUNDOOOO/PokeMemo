@@ -1,15 +1,11 @@
 ﻿using Avalonia.Controls.ApplicationLifetimes;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia;
 using CommunityToolkit.Mvvm.Input;
+using PokeMemo.Utility;
+using PokeMemo.Models;
 
 namespace PokeMemo.ViewModels
 {
@@ -28,6 +24,7 @@ namespace PokeMemo.ViewModels
             set
             {
                 _name = value;
+                OnPropertyChanged();
             }
         }
 
@@ -39,6 +36,7 @@ namespace PokeMemo.ViewModels
             set
             {
                 _category = value;
+                OnPropertyChanged();
             }
         }
 
@@ -49,6 +47,7 @@ namespace PokeMemo.ViewModels
             set
             {
                 _isNameEmpty = value;
+                OnPropertyChanged();
             }
         }
         
@@ -60,6 +59,7 @@ namespace PokeMemo.ViewModels
             set
             {
                 _isCategoryEmpty = value;
+                OnPropertyChanged();
             }
         }
 
@@ -68,13 +68,48 @@ namespace PokeMemo.ViewModels
 
         public CreateDeckViewModel()
         {
+            CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
+            NavigateToCreateCardViewCommand = new RelayCommand(NavigateToCreateCardView);
         }
         
+        private bool CheckIfFieldsAreValid()
+        {
+            /* Return if either the name or category field is empty */
+            IsNameEmpty = string.IsNullOrEmpty(Name);
+            IsCategoryEmpty = string.IsNullOrEmpty(Category);
+            if (IsNameEmpty || IsCategoryEmpty) return false;
+            
+            return true;
+        }
+
+        private void CreateDeckAndRefreshFields()
+        {
+            /* Add a new card to the currently selected deck */
+            var backgroundColour = CurrentDeck?.BackgroundColour ?? "#FFFFFF";
+            var foregroundColour = CurrentDeck?.ForegroundColour ?? "#000000";
+            var borderColour = CurrentDeck?.BorderColour ?? "#000000";
+            var imagePath = ImageHelper.GetImageByType(CurrentDeck?.Type);
+            CurrentDeck?.AddCard(new Card(Name, Category, backgroundColour, foregroundColour, borderColour, imagePath));
+            /* Refresh the fields and update the corresponding view */
+            Name = string.Empty;
+            Category = string.Empty;
+            IsNameEmpty = false;
+            IsCategoryEmpty = false;
+        }
+
         private void NavigateToDeckLibraryView()
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
             mainWindowViewModel?.NavigateToDeckLibraryViewCommand.Execute(null);
+        }
+        
+        private void NavigateToCreateCardView()
+        {
+            var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
+            mainWindowViewModel?.NavigateToCreateCardViewCommand.Execute(null);
+            CheckIfFieldsAreValid();
+            CreateDeckAndRefreshFields();
         }
     }
 }
