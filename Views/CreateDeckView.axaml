@@ -53,16 +53,25 @@
             </Border>
             
             <!-- User input fields -->
-            <Grid DockPanel.Dock="Right" RowDefinitions="Auto, Auto" VerticalAlignment="Center">
+            <Grid DockPanel.Dock="Right" RowDefinitions="Auto, Auto, Auto" VerticalAlignment="Center">
                 <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,20">
                     <TextBlock Text="Deck Name:" />
                     <TextBox Text="{Binding Name}" Name="Name" CornerRadius="5" HorizontalAlignment="Stretch" />
                     <TextBlock Text="Please enter a name first before saving." Foreground="Red" IsVisible="{Binding IsNameEmpty}"/>
                 </StackPanel>
-                <StackPanel Grid.Row="1" Spacing="8">
+                <StackPanel Grid.Row="1" Spacing="8" Margin="0,0,0,20">
                     <TextBlock Text="Category:" />
                     <TextBox Text="{Binding Category}" Name="Category" CornerRadius="5" HorizontalAlignment="Stretch" />
                     <TextBlock Text="Please enter a category first before saving." Foreground="Red" IsVisible="{Binding IsCategoryEmpty}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Spacing="8">
+                    <TextBlock Text="Theme:" />
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Content="Fire" GroupName="DeckType" Tag="Fire" Margin="0,0,10,0"/>
+                        <RadioButton Content="Water" GroupName="DeckType" Tag="Water" Margin="0,0,10,0"/>
+                        <RadioButton Content="Grass" GroupName="DeckType" Tag="Grass" Margin="0,0,10,0"/>
+                        <RadioButton Content="Electric" GroupName="DeckType" Tag="Electric" Margin="0,0,10,0"/>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </DockPanel>
