@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:PokeMemo.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="PokeMemo.Views.CreateDeckView"
-             x:DataType="local:CreateDeckViewModel">
+             x:Class="PokeMemo.Views.ModifyDeckView"
+             x:DataType="local:ModifyDeckViewModel">
     <Design.DataContext>
-        <local:CreateDeckViewModel/>
+        <local:ModifyDeckViewModel/>
     </Design.DataContext>
     
     <StackPanel Margin="30, 20" Spacing="30">
