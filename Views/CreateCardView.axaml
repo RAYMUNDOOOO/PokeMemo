@@ -68,7 +68,7 @@
                 <!-- Buttons to save or create new card -->
                 <DockPanel>
                         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
-                                <Button Content="Save and exit" Command="{Binding SaveCardAndExitCommand }" IsEnabled="True" />
+                                <Button Content="{Binding LeftButtonText}" Command="{Binding SaveCardAndExitCommand }" IsEnabled="True" />
                                 <Button Content="Save and create next card" Command="{Binding SaveAndCreateNextCardCommand}" IsEnabled="True"/>
                         </StackPanel>
                 </DockPanel>
