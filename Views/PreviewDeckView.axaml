@@ -117,11 +117,14 @@
 							VerticalScrollBarVisibility="Auto" 
 							AllowAutoHide="False" 
 							Margin="0, 50, 0, 50">
+							<!-- Using the observable collection of Cards, we can detect which cards have been selected and
+									either modify or delete them -->
 							<ListBox 
 								ItemsSource="{Binding DeckLibrary.SelectedDeck.Cards}" 
 								Margin="0" 
-								SelectionMode="Single"
-								SelectedItem="{Binding SelectedCard}">
+								SelectionMode="Multiple"
+								SelectedItem="{Binding SelectedCard}"
+								SelectedItems="{Binding SelectedCards}">
 								
 								<ListBox.ItemsPanel>
 									<ItemsPanelTemplate>
@@ -174,6 +177,11 @@
 							        HorizontalAlignment="Right"
 							        Command="{Binding ModifyCardCommand}"
 							        CommandParameter="{Binding SelectedCard}"/>
+							<Button Background="White"
+							        Foreground="Black"
+							        Content="Delete card(s)" 
+							        HorizontalAlignment="Right"
+							        Command="{Binding DeleteSelectedCardsCommand}" />
 						</StackPanel>
 					</Grid>
 				</SplitView.Content>
