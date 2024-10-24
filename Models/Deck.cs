@@ -14,7 +14,7 @@ namespace PokeMemo.Models
         public string Name { get; set; }
         public string Category { get; set; }
         public PokemonType Type { get; set; }
-        
+
         public ObservableCollection<Card> Cards { get; set; }
 
         [ObservableProperty]

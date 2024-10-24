@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using Avalonia.Controls.ApplicationLifetimes;
 using PokeMemo.Models;
 using PokeMemo.Utility;
@@ -15,18 +14,16 @@ namespace PokeMemo.ViewModels
         private DeckLibrary DeckLibrary { get; }
         public ICommand NavigateToDeckLibraryViewCommand { get; }
         public ICommand NavigateToCreateCardViewCommand { get; }
-        public ICommand DeleteSelectedCardCommand { get; }
+        public ICommand ModifyCardCommand { get; }
         
-        public List<Card> SelectedCards { get; set; }
+        public Card SelectedCard { get; set; }
 
         public PreviewDeckViewModel()
         {
             DeckLibrary = DataService.Instance.DeckLibrary;
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
-            NavigateToCreateCardViewCommand = new RelayCommand(NavigateToCreateCardView);
-            DeleteSelectedCardCommand = new RelayCommand(DeleteSelectedCards);
-            
-            SelectedCards = new List<Card>();
+            NavigateToCreateCardViewCommand = new RelayCommand<Card>(NavigateToCreateCardView);
+            ModifyCardCommand = new RelayCommand(ModifyCard);
         }
 
         private void NavigateToDeckLibraryView()
@@ -35,10 +32,23 @@ namespace PokeMemo.ViewModels
             mainWindowViewModel?.NavigateToDeckLibraryViewCommand.Execute(null);
         }
 
-        private void NavigateToCreateCardView()
+        private void NavigateToCreateCardView(Card? selectedCard)
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
-            mainWindowViewModel?.NavigateToCreateCardViewCommand.Execute(null);
+
+            if (selectedCard == null)
+            {
+                mainWindowViewModel?.NavigateToCreateCardViewCommand.Execute(null);
+            }
+            else
+            {
+                mainWindowViewModel?.NavigateToCreateCardViewCommand.Execute(selectedCard);
+            }
+        }
+
+        private void ModifyCard()
+        {
+            NavigateToCreateCardViewCommand.Execute(SelectedCard);
         }
 
         private void DeleteSelectedCards()

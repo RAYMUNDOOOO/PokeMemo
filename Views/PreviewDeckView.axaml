@@ -120,9 +120,8 @@
 							<ListBox 
 								ItemsSource="{Binding DeckLibrary.SelectedDeck.Cards}" 
 								Margin="0" 
-								SelectionMode="Multiple"
-								SelectedIndex="{Binding SelectedCardIndex}"
-								SelectedItems="{Binding SelectedCards}">
+								SelectionMode="Single"
+								SelectedItem="{Binding SelectedCard}">
 								
 								<ListBox.ItemsPanel>
 									<ItemsPanelTemplate>
@@ -171,9 +170,10 @@
 						<StackPanel>
 							<Button Background="White"
 							        Foreground="Black"
-							        Content="Delete card" 
+							        Content="Modify card" 
 							        HorizontalAlignment="Right"
-							        Command="{Binding DeleteSelectedCardCommand}"/>
+							        Command="{Binding ModifyCardCommand}"
+							        CommandParameter="{Binding SelectedCard}"/>
 						</StackPanel>
 					</Grid>
 				</SplitView.Content>

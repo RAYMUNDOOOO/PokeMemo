@@ -8,8 +8,8 @@ namespace PokeMemo.Models
     {
         private static int _nextId = 1;
         public int Id { get; set; }
-        public string Question { get; set; }
-        public string Answer { get; set; }
+        public string? Question { get; set; }
+        public string? Answer { get; set; }
 
         [ObservableProperty]
         private string _backgroundColour;
@@ -23,7 +23,7 @@ namespace PokeMemo.Models
         [ObservableProperty]
         private Bitmap _imageSource;
 
-        public Card(string question, string answer, string backgroundColour, string foregroundColour, string borderColour, string imageSource)
+        public Card(string? question, string? answer, string backgroundColour, string foregroundColour, string borderColour, string imageSource)
         {
             Id = _nextId++;
             Question = question;

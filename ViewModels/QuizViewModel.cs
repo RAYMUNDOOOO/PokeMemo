@@ -16,9 +16,9 @@ namespace PokeMemo.ViewModels
         private List<Card> _shuffledCards;
         private int _currentCardIndex;
 
-        private string _currentCardText;
+        private string? _currentCardText;
 
-        public string CurrentCardText
+        public string? CurrentCardText
         {
             get => _currentCardText;
             set
