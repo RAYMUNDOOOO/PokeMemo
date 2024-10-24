@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Avalonia.Controls.ApplicationLifetimes;
 using PokeMemo.Models;
@@ -23,6 +23,7 @@ namespace PokeMemo.ViewModels
         public Card? SelectedCard { get; set; }
         public List<Card>? SelectedCards { get; set; }
         
+
         public PreviewDeckViewModel()
         {
             DeckLibrary = DataService.Instance.DeckLibrary;
