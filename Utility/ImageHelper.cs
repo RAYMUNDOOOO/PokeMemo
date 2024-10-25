@@ -19,14 +19,6 @@ namespace PokeMemo.Utility
             return new Bitmap(AssetLoader.Open(uri));
         }
 
-        public static readonly Dictionary<string, PokemonType> PokemonTypes = new Dictionary<string, PokemonType>
-        {
-            { "grass", new PokemonType("Grass", "#94D88D", "Black", "#61BB59", "/Assets/grass-type.png") },
-            { "fire", new PokemonType("Fire", "#FFC9A1", "Black", "#FF9D55", "/Assets/fire-type.png") },
-            { "water", new PokemonType("Water", "#87BBF1", "Black", "#4D91D7", "/Assets/water-type.png") },
-            { "electric", new PokemonType("Electric", "#FFEC94", "Black", "#F3D33C", "/Assets/electric-type.png") }
-        };
-
         private static readonly List<string> _grassTypeImages = new List<string>
         {
             "/Assets/bulbasaur.png",
