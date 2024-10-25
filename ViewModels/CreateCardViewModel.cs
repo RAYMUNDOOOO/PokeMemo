@@ -78,6 +78,18 @@ namespace PokeMemo.ViewModels
             }
         }
 
+        private bool _isCreateNextCardEnabled = true;
+
+        public bool IsCreateNextCardEnabled
+        {
+            get => _isCreateNextCardEnabled;
+            set
+            {
+                _isCreateNextCardEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         /*
          * Setting up view navigation by creating RelayCommands that call on functions
          * that update the CurrentViewModel in MainWindowViewModel
@@ -119,6 +131,7 @@ namespace PokeMemo.ViewModels
             Question = cardToBeModified?.Question;
             Answer = cardToBeModified?.Answer;
             LeftButtonText = "Modify card and exit";
+            IsCreateNextCardEnabled = false;
         }
 
         private void NavigateToPreviewDeckView()
