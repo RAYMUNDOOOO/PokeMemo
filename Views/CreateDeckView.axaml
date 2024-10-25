@@ -2,16 +2,85 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:local="clr-namespace:PokeMemo.ViewModels"
-			 xmlns:models="clr-namespace:PokeMemo.Models"
+             xmlns:local="clr-namespace:PokeMemo.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="PokeMemo.Views.CreateDeckView"
-			 x:CompileBindings="False">
-	<Design.DataContext>
-		<local:CreateDeckViewModel/>
-	</Design.DataContext>
-	<StackPanel>
-		<Button Content="Back to Deck Library" Command="{Binding NavigateToDeckLibraryViewCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Padding="40" Margin="10"/>
-		<TextBlock Text="This is the Create Deck View" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
-	</StackPanel>
+             x:DataType="local:CreateDeckViewModel">
+    <Design.DataContext>
+        <local:CreateDeckViewModel/>
+    </Design.DataContext>
+    
+    <StackPanel Margin="30, 20" Spacing="30">
+        <!-- Title bar -->
+        <Grid Height="40" ColumnDefinitions="Auto, *, Auto">
+            <TextBlock
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left" 
+                Text="Create Deck"
+                FontWeight="Bold" 
+                FontSize="40" />
+            <Button Grid.Column="2" Content="Back" Padding="10" Command="{Binding NavigateToDeckLibraryViewCommand}"/>
+        </Grid>
+        
+        <!-- Main section -->
+        <DockPanel>
+            <!-- Deck preview -->
+            <Border 
+                DockPanel.Dock="Left" 
+                Width="300" 
+                Height="375" 
+                Background="{Binding CurrentDeck.BackgroundColour}" 
+                BorderBrush="{Binding CurrentDeck.BorderColour}" 
+                BorderThickness="15" 
+                CornerRadius="10" 
+                Margin="0,0,30,0">
+                <StackPanel VerticalAlignment="Center" Spacing="10" Width="200">
+                    <TextBlock 
+                        Text="{Binding #Name.Text}" 
+                        Foreground="{Binding CurrentDeck.ForegroundColour}"
+                        TextWrapping="Wrap"
+                        TextAlignment="Center"
+                        FontSize="25"
+                        FontWeight="Bold"
+                        Margin="10,20" />
+                    <TextBlock 
+                        Text="{Binding #Category.Text}"
+                        Foreground="{Binding CurrentDeck.ForegroundColour}"
+                        TextAlignment="Center"
+                        FontSize="20"
+                        FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- User input fields -->
+            <Grid DockPanel.Dock="Right" RowDefinitions="Auto, Auto, Auto" VerticalAlignment="Center">
+                <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,20">
+                    <TextBlock Text="Deck Name:" />
+                    <TextBox Text="{Binding Name}" Name="Name" CornerRadius="5" HorizontalAlignment="Stretch" />
+                    <TextBlock Text="Please enter a name first before saving." Foreground="Red" IsVisible="{Binding IsNameEmpty}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Spacing="8" Margin="0,0,0,20">
+                    <TextBlock Text="Category:" />
+                    <TextBox Text="{Binding Category}" Name="Category" CornerRadius="5" HorizontalAlignment="Stretch" />
+                    <TextBlock Text="Please enter a category first before saving." Foreground="Red" IsVisible="{Binding IsCategoryEmpty}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Spacing="8">
+                    <TextBlock Text="Theme:" />
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Content="Fire" GroupName="DeckType" Tag="Fire" Margin="0,0,10,0"/>
+                        <RadioButton Content="Water" GroupName="DeckType" Tag="Water" Margin="0,0,10,0"/>
+                        <RadioButton Content="Grass" GroupName="DeckType" Tag="Grass" Margin="0,0,10,0"/>
+                        <RadioButton Content="Electric" GroupName="DeckType" Tag="Electric" Margin="0,0,10,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+        
+        <!-- Buttons to save or create new card -->
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+                <Button Content="Create Deck" Command="{Binding NavigateToCreateCardViewCommand}" IsEnabled="True" />
+            </StackPanel>
+        </DockPanel>
+    </StackPanel>
 </UserControl>

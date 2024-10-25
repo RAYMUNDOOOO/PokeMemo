@@ -11,8 +11,8 @@ namespace PokeMemo.Models
         private static int _nextId = 1;
 
         public int Id { get; private set; }
-        public string Name { get; set; }
-        public string Category { get; set; }
+        public string? Name { get; set; }
+        public string? Category { get; set; }
         public PokemonType Type { get; set; }
         public ObservableCollection<Card> Cards { get; set; }
 
@@ -28,7 +28,7 @@ namespace PokeMemo.Models
         [ObservableProperty]
         private Bitmap _imageSource;
 
-        public Deck(string name, string category, PokemonType type)
+        public Deck(string? name, string? category, PokemonType type)
         {
             Id = _nextId++;
             Name = name;
