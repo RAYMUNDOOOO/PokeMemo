@@ -18,22 +18,41 @@
 		</Grid.RowDefinitions>
 		
 		<DockPanel Grid.Row="0" Margin="10">
-			<TextBlock 
-				Text="View Deck" 
-				FontSize="40" 
-				FontWeight="Bold" 
-				DockPanel.Dock="Left" 
-				VerticalAlignment="Center" />
-			<Button 
-				Content="Add Card" 
-				Command="{Binding NavigateToCreateCardViewCommand}" 
-				DockPanel.Dock="Right" 
-				IsEnabled="True" />
-			<Button 
-				Content="Back to Deck Library" 
-				Command="{Binding NavigateToDeckLibraryViewCommand}" 
-				DockPanel.Dock="Right" 
-				Padding="10" />
+			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+				<Button 
+					Content="Back to Deck Library" 
+					Command="{Binding NavigateToDeckLibraryViewCommand}" />
+				<Button
+					Content="Modify Deck" 
+					Command="{Binding ModifyDeckCommand}"
+					CommandParameter="{Binding SelectedCard}"/>
+				<Button
+					Content="Delete Deck" 
+					Command="{Binding DeleteDeckCommand}" />
+			</StackPanel>
+			
+			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+				<TextBlock 
+					Text="View Deck" 
+					FontSize="40" 
+					FontWeight="Bold" 
+					TextAlignment="Center"
+					Margin="40"/>
+			</StackPanel>
+			
+			<StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+				<Button 
+					Content="Add Card" 
+					Command="{Binding NavigateToCreateCardViewCommand}" 
+					IsEnabled="True" />
+				<Button
+					Content="Modify Card" 
+					Command="{Binding ModifyCardCommand}"
+					CommandParameter="{Binding SelectedCard}"/>
+				<Button
+					Content="Delete Card(s)" 
+					Command="{Binding DeleteSelectedCardsCommand}"/>
+			</StackPanel>
 		</DockPanel>
 
 		<!-- SplitView for Decks and Cards -->
@@ -170,19 +189,6 @@
 								</ListBox.ItemTemplate>
 							</ListBox>
 						</ScrollViewer>
-						<StackPanel>
-							<Button Background="White"
-							        Foreground="Black"
-							        Content="Modify card" 
-							        HorizontalAlignment="Right"
-							        Command="{Binding ModifyCardCommand}"
-							        CommandParameter="{Binding SelectedCard}"/>
-							<Button Background="White"
-							        Foreground="Black"
-							        Content="Delete card(s)" 
-							        HorizontalAlignment="Right"
-							        Command="{Binding DeleteSelectedCardsCommand}" />
-						</StackPanel>
 					</Grid>
 				</SplitView.Content>
 		</SplitView>

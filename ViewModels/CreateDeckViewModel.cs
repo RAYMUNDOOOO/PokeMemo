@@ -11,7 +11,9 @@ namespace PokeMemo.ViewModels
 {
     public partial class CreateDeckViewModel : ViewModelBase
     {
-        public Deck CurrentDeck { get; }
+        public Deck? CurrentDeck { get; }
+        
+        private Deck? _deckToBeModified;
         
         /*
          * Fields used for the creation of a deck; generating the deck preview
@@ -74,6 +76,18 @@ namespace PokeMemo.ViewModels
                 OnPropertyChanged();
             }
         }
+        
+        private string _leftButtonText;
+
+        public string LeftButtonText
+        {
+            get => _leftButtonText;
+            set
+            {
+                _leftButtonText = value;
+                OnPropertyChanged();
+            }
+        }
 
         /*
          * Setting up view navigation by creating RelayCommands that call on functions
@@ -81,12 +95,37 @@ namespace PokeMemo.ViewModels
          */
         public ICommand NavigateToDeckLibraryViewCommand { get; }
         public ICommand NavigateToCreateCardViewCommand { get; }
-
+        /*
+         * Initialise the view with empty fields to create a new deck and
+         * set the content of the button to indicate to the user that they
+         * are creating a new deck, adding it to the deck library and then
+         * exiting.
+         */
         public CreateDeckViewModel()
         {
             CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
             NavigateToCreateCardViewCommand = new RelayCommand(NavigateToCreateCardView);
+            
+            LeftButtonText = "Save deck and exit";
+        }
+        
+        /*
+         * If there is a card to be modified, set this and the corresponding fields
+         * in the view to its existing Question and Answer fields. This will also
+         * set the button to indicate to the user that they're modifying an existing
+         * card and then exiting.
+         */
+        public CreateDeckViewModel(Deck? deckToBeModified)
+        {
+            CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
+            NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
+            //SaveDeckAndExitCommand = new RelayCommand(SaveDeckAndExit);
+
+            _deckToBeModified = deckToBeModified;
+            Name = deckToBeModified?.Name;
+            Category = deckToBeModified?.Category;
+            LeftButtonText = "Modify deck and exit";
         }
         
         private void NavigateToDeckLibraryView()
@@ -102,6 +141,23 @@ namespace PokeMemo.ViewModels
             
             CheckIfFieldsAreValid();
             CreateDeckAndRefreshFields();
+        }
+        
+        private void SaveDeckAndExit()
+        {
+            if (_deckToBeModified != null)
+            {
+                _deckToBeModified.Name = Name;
+                _deckToBeModified.Category = Category;
+                NavigateToDeckLibraryView();
+                return;
+            }
+            
+            if (CheckIfFieldsAreValid())
+            {
+                CreateDeckAndRefreshFields();
+                NavigateToDeckLibraryView();
+            }
         }
         
         private bool CheckIfFieldsAreValid()

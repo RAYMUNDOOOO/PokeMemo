@@ -63,6 +63,4 @@ namespace PokeMemo.Models
             return new Deck(name, category, typeName);
         }
     }
-
 }
-
