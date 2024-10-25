@@ -18,40 +18,48 @@
 		</Grid.RowDefinitions>
 		
 		<DockPanel Grid.Row="0" Margin="10">
-			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-				<Button 
-					Content="Back to Deck Library" 
-					Command="{Binding NavigateToDeckLibraryViewCommand}" />
-				<Button
-					Content="Modify Deck" 
-					Command="{Binding ModifyDeckCommand}"
-					CommandParameter="{Binding SelectedCard}"/>
-				<Button
-					Content="Delete Deck" 
-					Command="{Binding DeleteDeckCommand}" />
-			</StackPanel>
-			
-			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-				<TextBlock 
-					Text="View Deck" 
-					FontSize="40" 
-					FontWeight="Bold" 
-					TextAlignment="Center"
-					Margin="40"/>
-			</StackPanel>
-			
-			<StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-				<Button 
-					Content="Add Card" 
-					Command="{Binding NavigateToCreateCardViewCommand}" 
-					IsEnabled="True" />
-				<Button
-					Content="Modify Card" 
-					Command="{Binding ModifyCardCommand}"
-					CommandParameter="{Binding SelectedCard}"/>
-				<Button
-					Content="Delete Card(s)" 
-					Command="{Binding DeleteSelectedCardsCommand}"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+					<Button 
+						Content="Back to Deck Library" 
+						Command="{Binding NavigateToDeckLibraryViewCommand}" 
+						Margin="10" />
+					<Button
+						Content="Modify Deck" 
+						Command="{Binding ModifyDeckCommand}"
+						CommandParameter="{Binding SelectedCard}"
+						Margin="10" />
+					<Button
+						Content="Delete Deck" 
+						Command="{Binding DeleteDeckCommand}" 
+						Margin="10" />
+				</StackPanel>
+				
+				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+					<TextBlock 
+						Text="View Deck" 
+						FontSize="40" 
+						FontWeight="Bold" 
+						TextAlignment="Center"
+						Margin="40"/>
+				</StackPanel>
+				
+				<StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+					<Button 
+						Content="Add Card" 
+						Command="{Binding NavigateToCreateCardViewCommand}" 
+						Margin="10"
+						IsEnabled="True" />
+					<Button
+						Content="Modify Card" 
+						Command="{Binding ModifyCardCommand}"
+						CommandParameter="{Binding SelectedCard}"
+						Margin="10" />
+					<Button
+						Content="Delete Card(s)" 
+						Command="{Binding DeleteSelectedCardsCommand}"
+						Margin="10" />
+				</StackPanel>
 			</StackPanel>
 		</DockPanel>
 
