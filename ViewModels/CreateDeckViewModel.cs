@@ -11,10 +11,11 @@ namespace PokeMemo.ViewModels
 {
     public partial class CreateDeckViewModel : ViewModelBase
     {
+        public DeckLibrary DeckLibrary { get; }
         public Deck? CurrentDeck { get; }
-        
+
         private Deck? _deckToBeModified;
-        
+
         /*
          * Fields used for the creation of a deck; generating the deck preview
          * and determining which controls are visible
@@ -31,7 +32,6 @@ namespace PokeMemo.ViewModels
         }
 
         private string? _category;
-
         public string? Category
         {
             get => _category;
@@ -41,9 +41,8 @@ namespace PokeMemo.ViewModels
                 OnPropertyChanged();
             }
         }
-        
-        private string? _type;
 
+        private string? _type;
         public string? Type
         {
             get => _type;
@@ -64,9 +63,8 @@ namespace PokeMemo.ViewModels
                 OnPropertyChanged();
             }
         }
-        
-        private bool _isCategoryEmpty;
 
+        private bool _isCategoryEmpty;
         public bool IsCategoryEmpty
         {
             get => _isCategoryEmpty;
@@ -76,9 +74,8 @@ namespace PokeMemo.ViewModels
                 OnPropertyChanged();
             }
         }
-        
-        private string _leftButtonText;
 
+        private string _leftButtonText;
         public string LeftButtonText
         {
             get => _leftButtonText;
@@ -103,13 +100,13 @@ namespace PokeMemo.ViewModels
          */
         public CreateDeckViewModel()
         {
-            CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
+            DeckLibrary = DataService.Instance.DeckLibrary;
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
             NavigateToCreateCardViewCommand = new RelayCommand(NavigateToCreateCardView);
-            
+
             LeftButtonText = "Save deck and exit";
         }
-        
+
         /*
          * If there is a card to be modified, set this and the corresponding fields
          * in the view to its existing Question and Answer fields. This will also
@@ -118,6 +115,7 @@ namespace PokeMemo.ViewModels
          */
         public CreateDeckViewModel(Deck? deckToBeModified)
         {
+            DeckLibrary = DataService.Instance.DeckLibrary;
             CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
             //SaveDeckAndExitCommand = new RelayCommand(SaveDeckAndExit);
@@ -127,22 +125,22 @@ namespace PokeMemo.ViewModels
             Category = deckToBeModified?.Category;
             LeftButtonText = "Modify deck and exit";
         }
-        
+
         private void NavigateToDeckLibraryView()
         {
             var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
             mainWindowViewModel?.NavigateToDeckLibraryViewCommand.Execute(null);
         }
-        
+
         private void NavigateToCreateCardView()
         {
-            var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
-            mainWindowViewModel?.NavigateToCreateCardViewCommand.Execute(null);
-            
             CheckIfFieldsAreValid();
             CreateDeckAndRefreshFields();
+
+            var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
+            mainWindowViewModel?.NavigateToCreateCardViewCommand.Execute(null);
         }
-        
+
         private void SaveDeckAndExit()
         {
             if (_deckToBeModified != null)
@@ -152,38 +150,40 @@ namespace PokeMemo.ViewModels
                 NavigateToDeckLibraryView();
                 return;
             }
-            
+
             if (CheckIfFieldsAreValid())
             {
                 CreateDeckAndRefreshFields();
                 NavigateToDeckLibraryView();
             }
         }
-        
+
         private bool CheckIfFieldsAreValid()
         {
             /* Return if either the name or category field is empty */
             IsNameEmpty = string.IsNullOrEmpty(Name);
             IsCategoryEmpty = string.IsNullOrEmpty(Category);
-            
+
             if (IsNameEmpty || IsCategoryEmpty) return false;
-            
+
             return true;
         }
 
         private void CreateDeckAndRefreshFields()
         {
-            string type = "grass";
-            
-            var typeName = ImageHelper.PokemonTypes[type.ToLower()];
-            
-            DataService.Instance.DeckLibrary.Decks.Add(new Deck(Name, Category, typeName));
-            
-            /* Refresh the fields and update the corresponding view */
-            Name = string.Empty;
-            Category = string.Empty;
-            IsNameEmpty = false;
-            IsCategoryEmpty = false;
+            if (DeckLibrary.SelectedType != null)
+            {
+                var newDeck = new Deck(Name, Category, DeckLibrary.SelectedType);
+                DeckLibrary.Decks.Add(newDeck);
+                DeckLibrary.SelectedDeck = newDeck;
+
+                /* Refresh the fields and update the corresponding view */
+                Name = string.Empty;
+                Category = string.Empty;
+                IsNameEmpty = false;
+                IsCategoryEmpty = false;
+            }
+
         }
     }
 }

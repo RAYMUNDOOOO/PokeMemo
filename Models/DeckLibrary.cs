@@ -14,22 +14,39 @@ namespace PokeMemo.Models
     {
         public List<Deck> Decks { get; set; }
 
-        private Deck _selectedDeck;
-        public Deck? SelectedDeck 
-        { 
+        private Deck? _selectedDeck;
+        public Deck? SelectedDeck
+        {
             get => _selectedDeck;
             set => SetProperty(ref _selectedDeck, value);
         }
 
+        private PokemonType? _selectedType;
+        public PokemonType? SelectedType
+        {
+            get => _selectedType;
+            set => SetProperty(ref _selectedType, value);
+        }
+
+        public List<PokemonType> PokemonTypes { get; set; }
+
         [ObservableProperty]
-        private Quiz _currentQuiz;
+        private Quiz? _currentQuiz;
 
         public DeckLibrary()
         {
+            PokemonTypes = new List<PokemonType>
+            {
+                new PokemonType("Grass", "#94D88D", "Black", "#61BB59", "/Assets/grass-type.png"),
+                new PokemonType("Fire", "#FFC9A1", "Black", "#FF9D55", "/Assets/fire-type.png"),
+                new PokemonType("Water", "#87BBF1", "Black", "#4D91D7", "/Assets/water-type.png"),
+                new PokemonType("Electric", "#FFEC94", "Black", "#F3D33C", "/Assets/electric-type.png")
+            };
+
             Decks = new List<Deck>
                 {
-                    CreateDeck("Multiplication Deck", "Maths", "water"),
-                    CreateDeck("Addition Deck", "Maths", "electric")
+                    CreateDeck("Multiplication Deck", "Maths", "Water"),
+                    CreateDeck("Addition Deck", "Maths", "Electric")
                 };
 
             var multDeck = Decks.FirstOrDefault(d => d.Name == "Multiplication Deck");
@@ -59,7 +76,7 @@ namespace PokeMemo.Models
 
         private Deck CreateDeck(string name, string category, string type)
         {
-            var typeName = ImageHelper.PokemonTypes[type.ToLower()];
+            var typeName = PokemonTypes.First(t => t.Name.Equals(type, StringComparison.OrdinalIgnoreCase));
             return new Deck(name, category, typeName);
         }
     }
