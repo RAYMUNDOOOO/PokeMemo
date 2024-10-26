@@ -10,7 +10,7 @@
 	<Design.DataContext>
 		<local:QuizResultsViewModel/>
 	</Design.DataContext>
-
+	
 	<!-- setting the animation for the images -->
 	<UserControl.Styles>
 		<Style Selector="Image">
@@ -41,6 +41,8 @@
 		</Style>
 	</UserControl.Styles>
 
+	<!-- The Quiz Results View -->
+	
 	<!-- using a grid to divide the view into columns for the images on either side of the text -->
 	<Grid ColumnDefinitions="*,*,Auto,*,*">
 		
@@ -56,6 +58,7 @@
 			<Image Source="{Binding BackgroundImage}" Width="150" Height="150" Margin="20,40" />
 		</StackPanel>
 
+		<!-- This central column has all of the text -->
 		<StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
 			<TextBlock
 				Text="Quiz Results"

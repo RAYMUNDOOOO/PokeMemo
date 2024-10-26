@@ -8,18 +8,23 @@ using PokeMemo.Utility;
 
 namespace PokeMemo.ViewModels
 {
+    // This ViewModel is responsible for handling the logic of the Quiz Results view.
     public partial class QuizResultsViewModel : ViewModelBase
     {
+        // The DeckLibrary instance is initialized with the DataService's DeckLibrary instance
         private DeckLibrary DeckLibrary { get; }
 
+        // The Score and TotalCards properties are used to display the user's score and the total number of cards in the quiz
         public int Score => DeckLibrary.CurrentQuiz.Score;
         public int TotalCards => DeckLibrary.CurrentQuiz.TotalCards;
 
+        // The above values are then used to generate the ScoreText and ResultText properties
         public string ScoreText => $"You scored {Score} out of {TotalCards}!";
         public string ResultText => GetResultMessage(Score, TotalCards);
 
-        private Bitmap _backgroundImage;
-        public Bitmap BackgroundImage
+        // The BackgroundImage property is used to display an image based on the user's score
+        private Bitmap? _backgroundImage;
+        public Bitmap? BackgroundImage
         {
             get => _backgroundImage;
             set
@@ -31,6 +36,8 @@ namespace PokeMemo.ViewModels
                 }
             }
         }
+
+        // The NavigateToDeckLibraryViewCommand is used to navigate back to the DeckLibrary view
         public ICommand NavigateToDeckLibraryViewCommand { get; }
 
         public QuizResultsViewModel()
@@ -39,6 +46,9 @@ namespace PokeMemo.ViewModels
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
         }
 
+        // The GetResultMessage method is used to generate a message based on the user's score
+        // It uses the ratio of the score to the total number of cards to determine the message
+        // It also sets the BackgroundImage property based on the user's score
         public string GetResultMessage(int score, int totalCards)
         {
             if (score == totalCards)
@@ -72,9 +82,11 @@ namespace PokeMemo.ViewModels
                 return "Don't give up! Remember, even Ash lost his first battle!";
             }
         }
+
+        // The NavigateToDeckLibraryView method is used to navigate back to the DeckLibrary view
         private void NavigateToDeckLibraryView()
         {
-            var mainWindowViewModel = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow.DataContext as MainWindowViewModel;
+            var mainWindowViewModel = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow?.DataContext as MainWindowViewModel;
             mainWindowViewModel?.NavigateToDeckLibraryViewCommand.Execute(null);
         }
     }
