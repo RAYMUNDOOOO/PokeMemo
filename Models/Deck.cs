@@ -15,24 +15,68 @@ namespace PokeMemo.Models
         public string? Category { get; set; }
 
         // The PokemonType property is used to set the colours and image of the deck.
-        public PokemonType Type { get; set; }
+        private PokemonType _type;
+        public PokemonType Type
+        {
+            get => _type;
+            set
+            {
+                _type = value;
+                OnPropertyChanged();
+            }
+        }
 
         // The Cards property is an observable collection of Card objects, which means that changes to the collection can be observed by the UI.
         public ObservableCollection<Card> Cards { get; set; }
 
         // These properties are used to set the colours and image of the Deck.
         // They are also passed to the Cards when they are added to the Deck.
-        [ObservableProperty]
         private string _backgroundColour;
 
-        [ObservableProperty]
+        public string BackgroundColour
+        {
+            get => _backgroundColour;
+            set
+            {
+                _backgroundColour = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _foregroundColour;
 
-        [ObservableProperty]
-        private string _borderColour;
+        public string ForegroundColour
+        {
+            get => _foregroundColour;
+            set
+            {
+                _foregroundColour = value;
+                OnPropertyChanged();
+            }
+        }
 
-        [ObservableProperty]
+        private string _borderColour;
+        public string BorderColour
+        {
+            get => _borderColour;
+            set
+            {
+                _borderColour = value;
+                OnPropertyChanged();
+            }
+        }
+
         private Bitmap _imageSource;
+
+        public Bitmap ImageSource
+        {
+            get => _imageSource;
+            set
+            {
+                _imageSource = value;
+                OnPropertyChanged();
+            }
+        }
 
         // The colours and image of the Deck are set based on the PokemonType of the Deck.
         // The list of PokemonTypes is defined in the DeckLibrary class.
@@ -43,9 +87,9 @@ namespace PokeMemo.Models
             Category = category;
             Type = type;
             Cards = new ObservableCollection<Card>();
-            _backgroundColour = type.BackgroundColour;
-            _foregroundColour = type.ForegroundColour;
-            _borderColour = type.BorderColour;
+            BackgroundColour = type.BackgroundColour;
+            ForegroundColour = type.ForegroundColour;
+            BorderColour = type.BorderColour;
             _imageSource = type.ImageSource;
         }
 

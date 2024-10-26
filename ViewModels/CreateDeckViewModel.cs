@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls.ApplicationLifetimes;
+﻿using System;
+using Avalonia.Controls.ApplicationLifetimes;
 using System.Windows.Input;
 using Avalonia;
 using CommunityToolkit.Mvvm.Input;
@@ -107,6 +108,7 @@ namespace PokeMemo.ViewModels
          */
         public CreateDeckViewModel(Deck? deckToBeModified)
         {
+            DeckLibrary = DataService.Instance.DeckLibrary;
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
             SaveDeckAndExitCommand = new RelayCommand(SaveDeckAndExit);
 
@@ -137,8 +139,17 @@ namespace PokeMemo.ViewModels
             {
                 if (CheckIfFieldsAreValid())
                 {
+                    /* Set the new name, category and colours depending on the type selected */
                     _deckToBeModified.Name = Name;
                     _deckToBeModified.Category = Category;
+                    _deckToBeModified.Type = DeckLibrary.SelectedType;
+                    _deckToBeModified.BackgroundColour = DeckLibrary.SelectedType.BackgroundColour;
+                    _deckToBeModified.ForegroundColour = DeckLibrary.SelectedType.ForegroundColour;
+                    _deckToBeModified.BorderColour = DeckLibrary.SelectedType.BorderColour;
+                    _deckToBeModified.ImageSource = DeckLibrary.SelectedType.ImageSource;
+                    
+                    /* Update the cards within the deck with the new type and its corresponding colours */
+                    
                     NavigateToDeckLibraryView();
                     return;
                 }
