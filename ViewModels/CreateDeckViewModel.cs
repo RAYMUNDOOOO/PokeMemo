@@ -95,6 +95,7 @@ namespace PokeMemo.ViewModels
         public ICommand NavigateToCreateCardViewCommand { get; }
 
         public ICommand SaveDeckAndExitCommand { get; }
+        
         /*
          * Initialise the view with empty fields to create a new deck and
          * set the content of the button to indicate to the user that they
@@ -112,15 +113,13 @@ namespace PokeMemo.ViewModels
         }
 
         /*
-         * If there is a card to be modified, set this and the corresponding fields
+         * If there is a deck to be modified, set this and the corresponding fields
          * in the view to its existing Question and Answer fields. This will also
          * set the button to indicate to the user that they're modifying an existing
-         * card and then exiting.
+         * deck and then exiting.
          */
         public CreateDeckViewModel(Deck? deckToBeModified)
         {
-            DeckLibrary = DataService.Instance.DeckLibrary;
-            CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
             SaveDeckAndExitCommand = new RelayCommand(SaveDeckAndExit);
 
