@@ -149,6 +149,13 @@ namespace PokeMemo.ViewModels
                     _deckToBeModified.ImageSource = DeckLibrary.SelectedType.ImageSource;
                     
                     /* Update the cards within the deck with the new type and its corresponding colours */
+                    foreach (Card card in _deckToBeModified.Cards)
+                    {
+                        card.BackgroundColour = DeckLibrary.SelectedType.BackgroundColour;
+                        card.ForegroundColour = DeckLibrary.SelectedType.ForegroundColour;
+                        card.BorderColour = DeckLibrary.SelectedType.BorderColour;
+                        card.ImageSource = DeckLibrary.SelectedType.ImageSource;
+                    }
                     
                     NavigateToDeckLibraryView();
                     return;

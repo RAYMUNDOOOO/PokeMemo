@@ -32,7 +32,6 @@ namespace PokeMemo.Models
         // These properties are used to set the colours and image of the Deck.
         // They are also passed to the Cards when they are added to the Deck.
         private string _backgroundColour;
-
         public string BackgroundColour
         {
             get => _backgroundColour;
@@ -44,7 +43,6 @@ namespace PokeMemo.Models
         }
 
         private string _foregroundColour;
-
         public string ForegroundColour
         {
             get => _foregroundColour;
@@ -67,7 +65,6 @@ namespace PokeMemo.Models
         }
 
         private Bitmap _imageSource;
-
         public Bitmap ImageSource
         {
             get => _imageSource;
