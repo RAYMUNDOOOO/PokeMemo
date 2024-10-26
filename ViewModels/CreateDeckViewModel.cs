@@ -178,7 +178,7 @@ namespace PokeMemo.ViewModels
             /* Return if either the name or category field is empty */
             IsNameEmpty = string.IsNullOrEmpty(Name);
             IsCategoryEmpty = string.IsNullOrEmpty(Category);
-            // IsDeckTypeNotSelected = DeckLibrary.SelectedType == null;
+            IsDeckTypeNotSelected = DeckLibrary.SelectedType == null;
 
             if (IsNameEmpty || IsCategoryEmpty || IsDeckTypeNotSelected) return false;
 
