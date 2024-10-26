@@ -18,7 +18,7 @@
                 DockPanel.Dock="Left"
                 Text="Create Deck"
                 FontWeight="Bold"
-                FontSize="40" />
+                FontSize="36" />
 			<Button Grid.Column="2" Content="Back" Padding="10" Command="{Binding NavigateToDeckLibraryViewCommand}"/>
 		</Grid>
 
@@ -57,13 +57,15 @@
 				<StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,20">
 					<TextBlock Text="Deck Name:" />
 					<TextBox Text="{Binding Name}" Name="Name" CornerRadius="5" HorizontalAlignment="Stretch" />
-					<TextBlock Text="Please enter a name first before saving." Foreground="Red" IsVisible="{Binding IsNameEmpty}"/>
+					<TextBlock Text="Please enter a name." Foreground="Red" IsVisible="{Binding IsNameEmpty}"/>
 				</StackPanel>
 				<StackPanel Grid.Row="1" Spacing="8" Margin="0,0,0,20">
 					<TextBlock Text="Category:" />
 					<TextBox Text="{Binding Category}" Name="Category" CornerRadius="5" HorizontalAlignment="Stretch" />
-					<TextBlock Text="Please enter a category first before saving." Foreground="Red" IsVisible="{Binding IsCategoryEmpty}"/>
+					<TextBlock Text="Please enter a category." Foreground="Red" IsVisible="{Binding IsCategoryEmpty}"/>
 				</StackPanel>
+				
+				<!-- Theme selection -->
 				<StackPanel Orientation="Horizontal" Grid.Row="2" Spacing="8">
 					<TextBlock Text="Theme:" />
 					<ListBox
@@ -83,14 +85,15 @@
 							</DataTemplate>
 						</ListBox.ItemTemplate>
 					</ListBox>
+					<TextBlock Text="Please select a deck theme." Foreground="Red" IsVisible="{Binding IsDeckTypeNotSelected}"/>
 				</StackPanel>
 			</Grid>
 		</DockPanel>
 
-		<!-- Buttons to save or create new card -->
+		<!-- Button to create new deck -->
 		<DockPanel>
 			<StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
-				<Button Content="Create Deck" Command="{Binding NavigateToCreateCardViewCommand}" IsEnabled="True" />
+				<Button Content="Create Deck" Command="{Binding SaveDeckAndExitCommand}" IsEnabled="True" Padding="20" />
 			</StackPanel>
 		</DockPanel>
 	</StackPanel>

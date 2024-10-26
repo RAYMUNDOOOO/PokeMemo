@@ -7,8 +7,11 @@ using PokeMemo.Models;
 
 namespace PokeMemo.ViewModels
 {
+    // This ViewModel is responsible for handling the logic of the Main Window.
+    // The Main Window connects with the Views to display the correct view based on the user's actions.
     public partial class MainWindowViewModel : ObservableObject
     {
+        // The CurrentView property is used to bind the current view to the Main Window.
         private object _currentView;
         public object CurrentView
         {
@@ -16,6 +19,7 @@ namespace PokeMemo.ViewModels
             set => SetProperty(ref _currentView, value);
         }
 
+        // The following commands are used to navigate to different views.
         public ICommand NavigateToDeckLibraryViewCommand { get; }
         public ICommand NavigateToCreateDeckViewCommand { get; }
         public ICommand NavigateToPreviewDeckViewCommand { get; }
@@ -34,6 +38,7 @@ namespace PokeMemo.ViewModels
             CurrentView = new DeckLibraryViewModel();
         }
 
+        // The following methods are used to navigate to different views.
         private void NavigateToDeckLibrary()
         {
             CurrentView = new DeckLibraryViewModel();

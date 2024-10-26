@@ -10,13 +10,32 @@
 	<Design.DataContext>
 		<local:DeckLibraryViewModel/>
 	</Design.DataContext>
+	
+	<!-- The Deck Library view -->
 	<StackPanel>
-		<TextBlock 
-			Text="Deck Library" 
-			FontSize="40" 
-			FontWeight="Bold" 
-			TextAlignment="Center" 
-			Margin="40" />
+		
+		<!-- Title Bar -->
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<TextBlock
+				Text="Deck Library"
+				FontSize="40"
+				FontWeight="Bold"
+				TextAlignment="Center"
+				HorizontalAlignment="Center"
+				Margin="40" 
+				Grid.Column="0" />
+			<Image 
+				Source="/Assets/pikachu-original-cap.png" 
+				Width="100" 
+				Height="100" 
+				Margin="10"
+				HorizontalAlignment="Right"
+				Grid.Column="1" />
+		</Grid>
 
 		<!-- Initial Deck Library Display -->
 		<ScrollViewer 
@@ -25,6 +44,8 @@
 			AllowAutoHide="False" 
 			Margin="50, 0, 50, 0" >
 			
+			<!-- This ListBox is bound to the list of Decks in the DeckLibrary -->
+			<!-- The SelectedItem is bound to the SelectedDeck property in the DeckLibrary -->
 			<ListBox 
 				ItemsSource="{Binding DeckLibrary.Decks}" 
 				SelectedItem="{Binding DeckLibrary.SelectedDeck}" 
@@ -73,26 +94,30 @@
 				</ListBox.ItemTemplate>
 			</ListBox>
 		</ScrollViewer>
+		
+		<!-- Buttons to navigate to other views -->
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
 			<Button 
 				Content="View Deck" 
 				Command="{Binding NavigateToPreviewDeckViewCommand}" 
+				HorizontalAlignment="Center" 
 				Padding="40" 
-				Margin="20" />
+				Margin="15,30" />
 			<Button 
 				Content="Take Quiz" 
 				Command="{Binding NavigateToQuizViewCommand}" 
-				HorizontalAlignment="Left" 
+				HorizontalAlignment="Center" 
 				VerticalAlignment="Bottom" 
 				Padding="40" 
-				Margin="30" />
+				Margin="15,30" />
 			<Button 
 				Content="Add New Deck" 
 				Command="{Binding NavigateToCreateDeckViewCommand}" 
-				HorizontalAlignment="Right" 
+				HorizontalAlignment="Center" 
 				VerticalAlignment="Bottom" 
 				Padding="40" 
-				Margin="0, 10, 50, 30" />
+				Margin="15,30" />
 		</StackPanel>
+		
 	</StackPanel>
 </UserControl>
