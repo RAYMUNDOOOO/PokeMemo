@@ -23,6 +23,8 @@ namespace PokeMemo.ViewModels
         public ICommand NavigateToCreateCardViewCommand { get; }
         public ICommand ModifyCardCommand { get; }
         public ICommand DeleteSelectedCardsCommand { get; }
+        public ICommand ModifyDeckCommand { get; }
+        public ICommand DeleteDeckCommand { get; }
 
         // The SelectedCard property / list of SelectedCards is used to store the card(s) that the user has selected
         // This is passed to the CreateCardViewModel when the user wants to modify a card
@@ -38,6 +40,8 @@ namespace PokeMemo.ViewModels
             NavigateToCreateCardViewCommand = new RelayCommand<Card>(NavigateToCreateCardView);
             ModifyCardCommand = new RelayCommand(ModifyCard);
             DeleteSelectedCardsCommand = new RelayCommand(DeleteSelectedCards);
+            ModifyDeckCommand = new RelayCommand(ModifyDeck);
+            DeleteDeckCommand = new RelayCommand(DeleteDeck);
         }
 
         // The following methods are used to navigate to other views - they link to the commands above
@@ -79,6 +83,18 @@ namespace PokeMemo.ViewModels
             {
                 DeckLibrary?.SelectedDeck?.Cards.RemoveMany(SelectedCards);
             }
+        }
+        
+        // Modify the selected deck
+        private void ModifyDeck()
+        {
+            
+        }
+        
+        // Delete the selected deck
+        private void DeleteDeck()
+        {
+            
         }
     }
 }
