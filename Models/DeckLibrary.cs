@@ -2,6 +2,7 @@
 using PokeMemo.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace PokeMemo.Models
@@ -10,7 +11,7 @@ namespace PokeMemo.Models
     public partial class DeckLibrary : ObservableObject
     {
         // The Decks property is a list of Deck objects that represent the different decks available in the application.
-        public List<Deck> Decks { get; set; }
+        public ObservableCollection<Deck> Decks { get; set; }
 
         // The SelectedDeck property is used to store the currently selected deck in the application.
         // It is used by the PreviewDeck View, Quiz View, ModifyDeck View and CreateCard View to display / modify / add cards to the selected deck.
@@ -50,13 +51,13 @@ namespace PokeMemo.Models
             };
 
             // The list of Decks is initialized with some dummy data for testing and demonstration purposes.
-            Decks = new List<Deck>
-                {
-                    CreateDeck("Multiplication Deck", "Maths", "Water"),
-                    CreateDeck("Addition Deck", "Maths", "Electric"),
-                    CreateDeck("Greetings Deck", "Spanish", "Fire"),
-                    CreateDeck("Animals Deck", "Science", "Grass"),
-                };
+            Decks = new ObservableCollection<Deck>()
+            {
+                CreateDeck("Multiplication Deck", "Maths", "Water"),
+                CreateDeck("Addition Deck", "Maths", "Electric"),
+                CreateDeck("Greetings Deck", "Spanish", "Fire"),
+                CreateDeck("Animals Deck", "Science", "Grass"),
+            };
 
             var multDeck = Decks.FirstOrDefault(d => d.Name == "Multiplication Deck");
             multDeck?.Cards.Add(new Card("What is 1 x 1?", "1", multDeck.BackgroundColour, multDeck.ForegroundColour, multDeck.BorderColour, ImageHelper.GetImageByType(multDeck.Type)));
