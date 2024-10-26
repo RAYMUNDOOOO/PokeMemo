@@ -94,7 +94,10 @@ namespace PokeMemo.ViewModels
         // Delete the selected deck
         private void DeleteDeck()
         {
-            
+            if (DeckLibrary.SelectedDeck != null)
+            {
+                DeckLibrary.Decks.Remove(DeckLibrary.SelectedDeck);
+            }
         }
     }
 }
