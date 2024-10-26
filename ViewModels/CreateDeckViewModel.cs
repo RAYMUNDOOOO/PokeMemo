@@ -154,7 +154,9 @@ namespace PokeMemo.ViewModels
                         card.BackgroundColour = DeckLibrary.SelectedType.BackgroundColour;
                         card.ForegroundColour = DeckLibrary.SelectedType.ForegroundColour;
                         card.BorderColour = DeckLibrary.SelectedType.BorderColour;
-                        card.ImageSource = DeckLibrary.SelectedType.ImageSource;
+
+                        string pokemonImage = ImageHelper.GetImageByType(DeckLibrary.SelectedType);
+                        card.ImageSource = ImageHelper.LoadFromResource(pokemonImage);
                     }
                     
                     NavigateToDeckLibraryView();
