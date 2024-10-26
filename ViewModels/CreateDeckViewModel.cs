@@ -76,17 +76,6 @@ namespace PokeMemo.ViewModels
             }
         }
 
-        private string _leftButtonText;
-        public string LeftButtonText
-        {
-            get => _leftButtonText;
-            set
-            {
-                _leftButtonText = value;
-                OnPropertyChanged();
-            }
-        }
-
         /*
          * Setting up view navigation by creating RelayCommands that call on functions
          * that update the CurrentViewModel in MainWindowViewModel
@@ -108,8 +97,6 @@ namespace PokeMemo.ViewModels
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
             NavigateToCreateCardViewCommand = new RelayCommand(NavigateToCreateCardView);
             SaveDeckAndExitCommand = new RelayCommand(SaveDeckAndExit);
-
-            LeftButtonText = "Save deck and exit";
         }
 
         /*
@@ -126,7 +113,6 @@ namespace PokeMemo.ViewModels
             _deckToBeModified = deckToBeModified;
             Name = deckToBeModified?.Name;
             Category = deckToBeModified?.Category;
-            LeftButtonText = "Modify deck and exit";
         }
 
         // Navigation functions
@@ -172,7 +158,7 @@ namespace PokeMemo.ViewModels
             /* Return if either the name or category field is empty */
             IsNameEmpty = string.IsNullOrEmpty(Name);
             IsCategoryEmpty = string.IsNullOrEmpty(Category);
-            IsDeckTypeNotSelected = DeckLibrary.SelectedType == null;
+            // IsDeckTypeNotSelected = DeckLibrary.SelectedType == null;
 
             if (IsNameEmpty || IsCategoryEmpty || IsDeckTypeNotSelected) return false;
 

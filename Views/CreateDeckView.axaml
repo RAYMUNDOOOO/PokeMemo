@@ -93,7 +93,7 @@
 		<!-- Button to create new deck -->
 		<DockPanel>
 			<StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
-				<Button Content="Create Deck" Command="{Binding SaveDeckAndExitCommand}" IsEnabled="True" Padding="20" />
+				<Button Content="Save" Command="{Binding SaveDeckAndExitCommand}" IsEnabled="True" Padding="20" />
 			</StackPanel>
 		</DockPanel>
 	</StackPanel>
