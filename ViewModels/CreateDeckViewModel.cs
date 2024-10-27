@@ -175,7 +175,11 @@ namespace PokeMemo.ViewModels
         // selected a theme for the deck before returning true
         private bool CheckIfFieldsAreValid()
         {
-            /* Return if either the name or category field is empty */
+            /*
+             * Return if either the name or category fields are empty, or if a new type
+             * hasn't been selected. Depending on which one isn't satisfied, insert a warning
+             * into the UI to alert the user and prevent them from saving.
+             */
             IsNameEmpty = string.IsNullOrEmpty(Name);
             IsCategoryEmpty = string.IsNullOrEmpty(Category);
             IsDeckTypeNotSelected = DeckLibrary.SelectedType == null;
