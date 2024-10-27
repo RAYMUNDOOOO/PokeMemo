@@ -1,16 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokeMemo.Models
 {
+    // This class represents a Quiz object, which is used to keep track of the user's score and the total number of cards in a quiz.
+    // It inherits from ObservableObject, which is part of the CommunityToolkit.Mvvm library.
     public class Quiz : ObservableObject
     {
+        // The user's score in the quiz
         private int _score;
         public int Score
         {
@@ -25,6 +21,7 @@ namespace PokeMemo.Models
             }
         }
 
+        // The total number of cards in the quiz
         private int _totalCards;
         public int TotalCards
         {
@@ -39,13 +36,7 @@ namespace PokeMemo.Models
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        }
-
+        // The constructor initializes the Quiz object with the total number of cards and sets the score to 0
         public Quiz(int totalCards)
         {
             Score = 0;

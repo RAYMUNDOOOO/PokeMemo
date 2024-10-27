@@ -6,14 +6,17 @@ using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.Input;
 using PokeMemo.Utility;
 using PokeMemo.Models;
-using ReactiveUI;
 
 namespace PokeMemo.ViewModels
 {
+    // This ViewModel is responsible for handling the logic of the CreateCard view.
     public class CreateCardViewModel : ViewModelBase
     {
+        // The CurrentDeck property is used to bind the current deck to the CreateCard view.
+        // This allows new cards to be added to the currently selected deck.
         public Deck? CurrentDeck { get; }
 
+        // The Card to be modified is set if the user is modifying an existing card
         private Card? _cardToBeModified;
         
         /*
@@ -32,7 +35,6 @@ namespace PokeMemo.ViewModels
         }
 
         private string? _answer;
-
         public string? Answer
         {
             get => _answer;
@@ -78,6 +80,18 @@ namespace PokeMemo.ViewModels
             }
         }
 
+        private bool _isCreateNextCardEnabled = true;
+
+        public bool IsCreateNextCardEnabled
+        {
+            get => _isCreateNextCardEnabled;
+            set
+            {
+                _isCreateNextCardEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         /*
          * Setting up view navigation by creating RelayCommands that call on functions
          * that update the CurrentViewModel in MainWindowViewModel
@@ -119,22 +133,29 @@ namespace PokeMemo.ViewModels
             Question = cardToBeModified?.Question;
             Answer = cardToBeModified?.Answer;
             LeftButtonText = "Modify card and exit";
+            IsCreateNextCardEnabled = false;
         }
 
+        // Navigation function
         private void NavigateToPreviewDeckView()
         {
             var mainWindowViewModel = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow?.DataContext as MainWindowViewModel;
             mainWindowViewModel?.NavigateToPreviewDeckViewCommand.Execute(null);
         }
 
+        // Depending on whether the user is creating a new card or modifying an existing one 
+        // This function will either update the existing card or create a new one
         private void SaveCardAndExit()
         {
             if (_cardToBeModified != null)
             {
-               _cardToBeModified.Question = Question;
-               _cardToBeModified.Answer = Answer;
-               NavigateToPreviewDeckView();
-               return;
+                if (CheckIfFieldsAreValid())
+                {
+                    _cardToBeModified.Question = Question;
+                    _cardToBeModified.Answer = Answer;
+                    NavigateToPreviewDeckView();
+                    return;
+                }
             }
             
             if (CheckIfFieldsAreValid())
@@ -144,6 +165,7 @@ namespace PokeMemo.ViewModels
             }
         }
 
+        // This function works similarly to the above except it does not navigate away from the CreateCard view
         private void SaveAndCreateNextCard()
         {
             if (CheckIfFieldsAreValid())
@@ -152,6 +174,7 @@ namespace PokeMemo.ViewModels
             }
         }
 
+        // This function checks if the fields are valid before creating a new card
         private bool CheckIfFieldsAreValid()
         {
             /* Return if either the question or answer field is empty */
@@ -162,6 +185,8 @@ namespace PokeMemo.ViewModels
             return true;
         }
 
+        // This function creates a new card and adds it to the currently selected deck
+        // It uses the selected deck's colours and image to set the card's colours and image
         private void CreateCardAndRefreshFields()
         {
             /* Add a new card to the currently selected deck */

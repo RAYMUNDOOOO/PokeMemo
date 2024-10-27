@@ -11,88 +11,137 @@
 		<local:PreviewDeckViewModel />
 	</Design.DataContext>
 
-	<Grid Margin="20">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		
-		<DockPanel Grid.Row="0" Margin="10">
-			<TextBlock 
-				Text="View Deck" 
-				FontSize="40" 
-				FontWeight="Bold" 
-				DockPanel.Dock="Left" 
-				VerticalAlignment="Center" />
-			<Button 
-				Content="Add Card" 
-				Command="{Binding NavigateToCreateCardViewCommand}" 
-				DockPanel.Dock="Right" 
-				IsEnabled="True" />
-			<Button 
-				Content="Back to Deck Library" 
-				Command="{Binding NavigateToDeckLibraryViewCommand}" 
-				DockPanel.Dock="Right" 
-				Padding="10" />
-		</DockPanel>
+	<!-- The Preview Deck view -->
+	<Grid RowDefinitions="Auto,Auto,*" Margin="0">
+
+		<!-- Title Bar -->
+		<Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0">
+			<TextBlock
+				Text="View Deck"
+				FontSize="36"
+				FontWeight="Bold"
+				TextAlignment="Center"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				Margin="40,20,40,0"
+				Grid.Column="0" />
+			<Button
+				Content="Back to Deck Library"
+				Command="{Binding NavigateToDeckLibraryViewCommand}"
+				HorizontalAlignment="Right"
+				Padding="40"
+				Margin="10,10,10,10"
+				Grid.Column="1" />
+		</Grid>
+
+		<Grid Grid.Row="1" ColumnDefinitions="Auto,Auto,Auto" Margin="0" >
+			<Grid Grid.Column="0" Margin="0" >
+				<Image
+					Source="/Assets/pikachu-summer.png"
+					Width="64"
+					Height="48"
+					Margin="350,0,100,0"
+					HorizontalAlignment="Left" />
+			</Grid>
+			<Grid Grid.Column="1" ColumnDefinitions="Auto,Auto" Margin="80,0">
+				<Button
+					Content="Modify Deck"
+					Command="{Binding ModifyDeckCommand}"
+					HorizontalAlignment="Right"
+					Padding="10"
+					Margin="10,0"
+					Grid.Column="0" />
+				<Button
+					Content="Delete Deck"
+					Command="{Binding DeleteDeckCommand}"
+					HorizontalAlignment="Right"
+					Padding="10"
+					Margin="10,0"
+					Grid.Column="1"/>
+			</Grid>
+			<Grid Grid.Column="2" ColumnDefinitions="Auto,Auto,Auto" Margin="80,0">
+				<Button
+					Content="Add Card"
+					Command="{Binding NavigateToCreateCardViewCommand}"
+					Padding="10"
+					Margin="10,0"
+					IsEnabled="True"
+					Grid.Column="0"  />
+				<Button
+					Content="Modify Card"
+					Command="{Binding ModifyCardCommand}"
+					CommandParameter="{Binding SelectedCard}"
+					Padding="10"
+					Margin="10,0"
+					Grid.Column="1" />
+				<Button
+					Content="Delete Card(s)"
+					Command="{Binding DeleteSelectedCardsCommand}"
+					Padding="10"
+					Margin="10,0"
+					Grid.Column="2"  />
+			</Grid>
+		</Grid>
 
 		<!-- SplitView for Decks and Cards -->
-		<SplitView 
-			Grid.Row="1" 
-			Background="Black" 
-			IsPaneOpen="True" 
-			DisplayMode="Inline" 
-			OpenPaneLength="400">
+		<SplitView
+			Grid.Row="2"
+			Background="#CC000000"
+			PaneBackground="#CC000000"
+			IsPaneOpen="True"
+			DisplayMode="Inline"
+			OpenPaneLength="400"
+			Margin="0" >
 			<!-- Pane for Decks -->
 			<SplitView.Pane>
-				<Grid Margin="10">
-					<TextBlock 
-						Text="Decks" 
-						FontSize="24" 
-						FontWeight="Bold" 
-						HorizontalAlignment="Center" 
+				<Grid Margin="10" Background="#CC000000">
+					<TextBlock
+						Text="Decks"
+						FontSize="24"
+						FontWeight="Bold"
+						HorizontalAlignment="Center"
 						Margin="0,10,0,10" />
 
-					<ScrollViewer 
-						VerticalScrollBarVisibility="Auto" 
-						AllowAutoHide="False" 
-						Margin="0, 50, 0, 50">
-						<ListBox 
-							ItemsSource="{Binding DeckLibrary.Decks}" 
-							SelectedItem="{Binding DeckLibrary.SelectedDeck}" 
-							Margin="0" 
+					<ScrollViewer
+						VerticalScrollBarVisibility="Auto"
+						AllowAutoHide="False"
+						Margin="0,50,0,50">
+						<ListBox
+							ItemsSource="{Binding DeckLibrary.Decks}"
+							SelectedItem="{Binding DeckLibrary.SelectedDeck}"
+							Margin="0"
 							SelectionMode="Single">
 							<ListBox.ItemTemplate>
 								<DataTemplate>
-									<Border 
-										Width="300" 
-										Height="375" 
-										Background="{Binding BackgroundColour}" 
-										BorderBrush="{Binding BorderColour}" 
-										BorderThickness="15" 
-										CornerRadius="10" 
+									<Border
+										Width="300"
+										Height="375"
+										Background="{Binding BackgroundColour}"
+										BorderBrush="{Binding BorderColour}"
+										BorderThickness="15"
+										CornerRadius="10"
 										Margin="5">
 										<Grid>
-											<TextBlock 
-												Text="{Binding Name}" 
-												Foreground="{Binding ForegroundColour}" 
-												HorizontalAlignment="Center" 
-												VerticalAlignment="Top" 
-												FontSize="30" 
-												FontWeight="Bold" 
-												TextAlignment="Center" 
-												TextWrapping="WrapWithOverflow" 
+											<TextBlock
+												Text="{Binding Name}"
+												Foreground="{Binding ForegroundColour}"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Top"
+												FontSize="30"
+												FontWeight="Bold"
+												TextAlignment="Center"
+												TextWrapping="WrapWithOverflow"
 												Margin="30,50,30,0"/>
-											<Image Source="{Binding ImageSource}" Stretch="None"></Image>
-											<TextBlock 
-												Text="{Binding Category}" 
-												Foreground="{Binding ForegroundColour}" 
-												HorizontalAlignment="Center" 
-												VerticalAlignment="Bottom" 
-												FontSize="24" 
-												FontWeight="Bold" 
-												TextAlignment="Center" 
-												TextWrapping="WrapWithOverflow" 
+											<Image Source="{Binding ImageSource}" Stretch="None" />
+											<TextBlock
+												Text="{Binding Category}"
+												Foreground="{Binding ForegroundColour}"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Bottom"
+												FontSize="24"
+												FontWeight="Bold"
+												TextAlignment="Center"
+												TextWrapping="WrapWithOverflow"
 												Margin="30,0,30,50"/>
 										</Grid>
 									</Border>
@@ -102,89 +151,77 @@
 					</ScrollViewer>
 				</Grid>
 			</SplitView.Pane>
+			
 			<!-- Content Area for Cards -->
 			<SplitView.Content>
-				<Grid Margin="10">
-						<TextBlock 
-							Text="{Binding DeckLibrary.SelectedDeck.Name, StringFormat={}{0} Cards}" 
-							FontSize="24" 
-							FontWeight="Bold" 
-							HorizontalAlignment="Center" 
-							Margin="0,10,0,10" />
+				<Grid Margin="10" Background="#CC000000">
+					<TextBlock
+						Text="{Binding DeckLibrary.SelectedDeck.Name, StringFormat={}{0} Cards}"
+						FontSize="24"
+						FontWeight="Bold"
+						HorizontalAlignment="Center"
+						Margin="0,10,0,10" />
 
-						<ScrollViewer 
-							HorizontalScrollBarVisibility="Auto" 
-							VerticalScrollBarVisibility="Auto" 
-							AllowAutoHide="False" 
-							Margin="0, 50, 0, 50">
-							<!-- Using the observable collection of Cards, we can detect which cards have been selected and
+					<ScrollViewer
+						HorizontalScrollBarVisibility="Auto"
+						VerticalScrollBarVisibility="Auto"
+						AllowAutoHide="False"
+						Margin="0,50,0,50">
+						<!-- Using the observable collection of Cards, we can detect which cards have been selected and
 									either modify or delete them -->
-							<ListBox 
-								ItemsSource="{Binding DeckLibrary.SelectedDeck.Cards}" 
-								Margin="0" 
-								SelectionMode="Multiple"
-								SelectedItem="{Binding SelectedCard}"
-								SelectedItems="{Binding SelectedCards}">
-								
-								<ListBox.ItemsPanel>
-									<ItemsPanelTemplate>
-										<UniformGrid Columns="3" />
-									</ItemsPanelTemplate>
-								</ListBox.ItemsPanel>
-								<ListBox.ItemTemplate>
-									<DataTemplate>
-										<Border 
-											Width="250" 
-											Height="312" 
-											Background="{Binding BackgroundColour}" 
-											BorderBrush="{Binding BorderColour}" 
-											BorderThickness="15" 
-											CornerRadius="10" 
-											Margin="5">
-											
-											<Grid>
-												<TextBlock 
-													Text="{Binding Question}" 
-													Foreground="{Binding ForegroundColour}" 
-													HorizontalAlignment="Center" 
-													VerticalAlignment="Top" 
-													FontSize="25" 
-													FontWeight="Bold" 
-													TextAlignment="Center" 
-													TextWrapping="WrapWithOverflow" 
-													Margin="30,50,30,0"/>
-												<Image Source="{Binding ImageSource}" Stretch="None"/>
-												<TextBlock 
-													Text="{Binding Answer}" 
-													Foreground="{Binding ForegroundColour}" 
-													HorizontalAlignment="Center" 
-													VerticalAlignment="Bottom" 
-													FontSize="20" 
-													FontWeight="Bold" 
-													TextAlignment="Center" 
-													TextWrapping="WrapWithOverflow" 
-													Margin="30,0,30,50"/>
-											</Grid>
-										</Border>
-									</DataTemplate>
-								</ListBox.ItemTemplate>
-							</ListBox>
-						</ScrollViewer>
-						<StackPanel>
-							<Button Background="White"
-							        Foreground="Black"
-							        Content="Modify card" 
-							        HorizontalAlignment="Right"
-							        Command="{Binding ModifyCardCommand}"
-							        CommandParameter="{Binding SelectedCard}"/>
-							<Button Background="White"
-							        Foreground="Black"
-							        Content="Delete card(s)" 
-							        HorizontalAlignment="Right"
-							        Command="{Binding DeleteSelectedCardsCommand}" />
-						</StackPanel>
-					</Grid>
-				</SplitView.Content>
+						<ListBox
+							ItemsSource="{Binding DeckLibrary.SelectedDeck.Cards}"
+							Margin="0"
+							SelectionMode="Multiple"
+							SelectedItem="{Binding SelectedCard}"
+							SelectedItems="{Binding SelectedCards}">
+
+							<ListBox.ItemsPanel>
+								<ItemsPanelTemplate>
+									<UniformGrid Columns="3" />
+								</ItemsPanelTemplate>
+							</ListBox.ItemsPanel>
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<Border
+										Width="250"
+										Height="312"
+										Background="{Binding BackgroundColour}"
+										BorderBrush="{Binding BorderColour}"
+										BorderThickness="15"
+										CornerRadius="10"
+										Margin="5">
+
+										<Grid>
+											<TextBlock
+												Text="{Binding Question}"
+												Foreground="{Binding ForegroundColour}"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Top"
+												FontSize="22"
+												FontWeight="Bold"
+												TextAlignment="Center"
+												TextWrapping="WrapWithOverflow"
+												Margin="30,50,30,30"/>
+											<Image Source="{Binding ImageSource}" Stretch="None" VerticalAlignment="Center" Margin="20"/>
+											<TextBlock
+												Text="{Binding Answer}"
+												Foreground="{Binding ForegroundColour}"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Bottom"
+												FontSize="20"
+												FontWeight="Bold"
+												TextAlignment="Center"
+												TextWrapping="WrapWithOverflow"
+												Margin="30,0,30,50"/>
+										</Grid>
+									</Border>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</ScrollViewer>
+				</Grid>
+			</SplitView.Content>
 		</SplitView>
 	</Grid>
 </UserControl>

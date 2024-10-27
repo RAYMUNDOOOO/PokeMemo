@@ -1,27 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Avalonia.Media.Imaging;
+using CommunityToolkit.Mvvm.ComponentModel;
 using PokeMemo.Utility;
 
 namespace PokeMemo.Models
 {
-    public class PokemonType
+    // This class represents a PokemonType, which is used to set the colours and image of a Card.
+    public partial class PokemonType : ObservableObject
     {
         public string Name { get; set; }
         public string BackgroundColour { get; set; }
         public string ForegroundColour { get; set; }
         public string BorderColour { get; set; }
-        public string ImageSource { get; set; }
 
+        [ObservableProperty]
+        private Bitmap _imageSource;
+
+        // The list of PokemonTypes is defined in the DeckLibrary class.
         public PokemonType(string name, string backgroundColour, string foregroundColour, string borderColour, string imageSource)
         {
             Name = name;
             BackgroundColour = backgroundColour;
             ForegroundColour = foregroundColour;
             BorderColour = borderColour;
-            ImageSource = imageSource;
+            _imageSource = ImageHelper.LoadFromResource(imageSource);
         }
     }
 }

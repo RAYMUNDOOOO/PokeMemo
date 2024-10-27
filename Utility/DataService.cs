@@ -1,15 +1,12 @@
 ﻿using PokeMemo.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokeMemo.Utility
 {
+    // The DataService class is a singleton class that provides access to the DeckLibrary instance.
+    // This class is used to ensure that only one instance of the DeckLibrary is created and shared across the application.
     public class DataService
     {
-        private static DataService _instance;
+        private static DataService? _instance;
         public static DataService Instance
         {
             get
