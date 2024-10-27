@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls.ApplicationLifetimes;
+﻿using System;
+using Avalonia.Controls.ApplicationLifetimes;
 using System.Windows.Input;
 using Avalonia;
 using CommunityToolkit.Mvvm.Input;
@@ -76,17 +77,6 @@ namespace PokeMemo.ViewModels
             }
         }
 
-        private string _leftButtonText;
-        public string LeftButtonText
-        {
-            get => _leftButtonText;
-            set
-            {
-                _leftButtonText = value;
-                OnPropertyChanged();
-            }
-        }
-
         /*
          * Setting up view navigation by creating RelayCommands that call on functions
          * that update the CurrentViewModel in MainWindowViewModel
@@ -95,6 +85,7 @@ namespace PokeMemo.ViewModels
         public ICommand NavigateToCreateCardViewCommand { get; }
 
         public ICommand SaveDeckAndExitCommand { get; }
+        
         /*
          * Initialise the view with empty fields to create a new deck and
          * set the content of the button to indicate to the user that they
@@ -107,27 +98,23 @@ namespace PokeMemo.ViewModels
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
             NavigateToCreateCardViewCommand = new RelayCommand(NavigateToCreateCardView);
             SaveDeckAndExitCommand = new RelayCommand(SaveDeckAndExit);
-
-            LeftButtonText = "Save deck and exit";
         }
 
         /*
-         * If there is a card to be modified, set this and the corresponding fields
+         * If there is a deck to be modified, set this and the corresponding fields
          * in the view to its existing Question and Answer fields. This will also
          * set the button to indicate to the user that they're modifying an existing
-         * card and then exiting.
+         * deck and then exiting.
          */
         public CreateDeckViewModel(Deck? deckToBeModified)
         {
             DeckLibrary = DataService.Instance.DeckLibrary;
-            CurrentDeck = DataService.Instance.DeckLibrary.SelectedDeck;
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibraryView);
             SaveDeckAndExitCommand = new RelayCommand(SaveDeckAndExit);
 
             _deckToBeModified = deckToBeModified;
             Name = deckToBeModified?.Name;
             Category = deckToBeModified?.Category;
-            LeftButtonText = "Modify deck and exit";
         }
 
         // Navigation functions
@@ -152,8 +139,26 @@ namespace PokeMemo.ViewModels
             {
                 if (CheckIfFieldsAreValid())
                 {
+                    /* Set the new name, category and colours depending on the type selected */
                     _deckToBeModified.Name = Name;
                     _deckToBeModified.Category = Category;
+                    _deckToBeModified.Type = DeckLibrary.SelectedType;
+                    _deckToBeModified.BackgroundColour = DeckLibrary.SelectedType.BackgroundColour;
+                    _deckToBeModified.ForegroundColour = DeckLibrary.SelectedType.ForegroundColour;
+                    _deckToBeModified.BorderColour = DeckLibrary.SelectedType.BorderColour;
+                    _deckToBeModified.ImageSource = DeckLibrary.SelectedType.ImageSource;
+                    
+                    /* Update the cards within the deck with the new type and its corresponding colours */
+                    foreach (Card card in _deckToBeModified.Cards)
+                    {
+                        card.BackgroundColour = DeckLibrary.SelectedType.BackgroundColour;
+                        card.ForegroundColour = DeckLibrary.SelectedType.ForegroundColour;
+                        card.BorderColour = DeckLibrary.SelectedType.BorderColour;
+
+                        string pokemonImage = ImageHelper.GetImageByType(DeckLibrary.SelectedType);
+                        card.ImageSource = ImageHelper.LoadFromResource(pokemonImage);
+                    }
+                    
                     NavigateToDeckLibraryView();
                     return;
                 }
@@ -170,7 +175,11 @@ namespace PokeMemo.ViewModels
         // selected a theme for the deck before returning true
         private bool CheckIfFieldsAreValid()
         {
-            /* Return if either the name or category field is empty */
+            /*
+             * Return if either the name or category fields are empty, or if a new type
+             * hasn't been selected. Depending on which one isn't satisfied, insert a warning
+             * into the UI to alert the user and prevent them from saving.
+             */
             IsNameEmpty = string.IsNullOrEmpty(Name);
             IsCategoryEmpty = string.IsNullOrEmpty(Category);
             IsDeckTypeNotSelected = DeckLibrary.SelectedType == null;

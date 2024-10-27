@@ -47,7 +47,6 @@
 				<Button
 					Content="Modify Deck"
 					Command="{Binding ModifyDeckCommand}"
-					CommandParameter="{Binding SelectedCard}"
 					HorizontalAlignment="Right"
 					Padding="10"
 					Margin="10,0"

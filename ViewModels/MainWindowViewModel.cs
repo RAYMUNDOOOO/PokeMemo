@@ -30,7 +30,7 @@ namespace PokeMemo.ViewModels
         public MainWindowViewModel()
         {
             NavigateToDeckLibraryViewCommand = new RelayCommand(NavigateToDeckLibrary);
-            NavigateToCreateDeckViewCommand = new RelayCommand(NavigateToCreateDeckView);
+            NavigateToCreateDeckViewCommand = new RelayCommand<Deck>(NavigateToCreateDeckView);
             NavigateToPreviewDeckViewCommand = new RelayCommand(NavigateToPreviewDeckView);
             NavigateToCreateCardViewCommand = new RelayCommand<Card>(NavigateToCreateCardView);
             NavigateToQuizViewCommand = new RelayCommand(NavigateToQuizView);
@@ -43,9 +43,16 @@ namespace PokeMemo.ViewModels
         {
             CurrentView = new DeckLibraryViewModel();
         }
-        private void NavigateToCreateDeckView()
+        private void NavigateToCreateDeckView(Deck? selectedDeck)
         {
-            CurrentView = new CreateDeckViewModel();
+            if (selectedDeck == null)
+            {
+                CurrentView = new CreateDeckViewModel();
+            }
+            else
+            {
+                CurrentView = new CreateDeckViewModel(selectedDeck);
+            }
         }
         private void NavigateToPreviewDeckView()
         {
